@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Responsive Html5 Templates">
+    
+	
+    <title>zCreative | Free Bootstrap Templates</title>
+	
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/gallery-css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	
+	<!-- Custom CSS -->
+	<link href="../../static/gallery-css/style.css" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link href="../../static/gallery-css/animate.css" rel="stylesheet" media="all" type="text/css">
+	
+	<!-- Lightbox.css -->
+	<link href="../../static/gallery-css/lightbox.min.css" rel="stylesheet" media="all" type="text/css">
+	
+	<!-- Custom Fonts -->
+    <link href="../../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body id="page-top" class="index-page" style="background-color:black;">
+<div class="wrap-body">
+	<!--////////////////////////////////////Container-->
+	<section id="page-content" class="index-page">
+	
+		<!-- main gallery content -->
+		<section class="box-content box-1" style="padding:10px 0;">
+			<div class="container" style="width:90%;">
+				<div class="heading wow" style="margin-bottom: 0px;">
+				 <!-- data-wow-delay=".1s" data-wow-duration="1s"> -->
+					
+					<h5>Gallery</h5>
+					<hr class="line">
+				</div>
+				<div class="filter-container isotopeFilters" >
+<!-- 					<ul class="list-inline filter">
+						<li class="active"><button class="btn btn-isoFilter" data-filter="*">All </button></li>
+						{% for app,widget in picutreLists.items %} 
+						<li><button class="btn btn-isoFilter" data-filter=".{{app}}">{{app}}</button></li>
+						{% endfor %}						
+					</ul> -->
+					<div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover filter" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                	<th>Name</th>
+                                	<th>Copy Path</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	{% for app,widget in picutreLists.items %} 
+					<tr>
+						<th>{{app}}</th>
+						<input type="hidden" id="{{app}}" value="{{BaseDir}}{{app}}">
+						<th><button type="button" class="btn btn-default" data-clipboard-target="#{{app}}"> Copy </button></th>
+						<th><button type="button" class="btn btn-primary" data-filter=".{{app}}">Showing</button></th>
+						<!-- class="btn btn-isoFilter" -->
+					</tr>
+                            	{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+				</div>
+				<div class="isotopeContainer">
+					{% for app,widget in picutreLists.items %}                   
+						{% for name,property in widget.items %}    
+						<!-- 类属性中具有簇标识 -->
+						<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector {{app}}">
+							<div class="portfolio-box">
+								<!-- 图片的位置  zoom-effect-->
+								<!-- <img src="/static/NewStaticWidgetData/raw_data/image_data/a2dp.Vol_137/headset.png" class="img-responsive" alt=""> -->
+								<img src="/static{{BaseDir}}{{property}}" class="img-responsive" alt="">
+									<!-- 图片的标识 -->
+								<p style="text-align:justify;opacity:0;font-size:0px;" id="{{name}}">{{BaseDir}}{{property}}</p>
+								<!-- <input type="hidden"  value="{{BaseDir}}{{property}}">  -->
+								<button type="button" class="btn btn-default" data-clipboard-target="#{{name}}">{{name}}</button>
+<!-- 								<div class="portfolio-box-caption">
+									<div class="portfolio-box-caption-content">
+										<div class="project-name">
+											
+										</div>
+										<div class="project-category">
+											Category
+										</div>
+										<div class="project-social">
+											<ul class="list-inline">
+												<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+												<li><a href="images/C1.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						{%endfor%}
+					{%endfor%}					
+					<!-- <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >自助建站</a></div> -->
+<!-- 					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector art">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C2.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/C2.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector illustrations">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C3.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/C3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector photography">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C4.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/C4.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector websites">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C5.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/C5.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector websites">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C6.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/6.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-md-6 isotopeSelector illustrations">
+						<div class="portfolio-box zoom-effect">
+							<img src="images/C7.jpg" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-name">
+										Project Name
+									</div>
+									<div class="project-category">
+										Category
+									</div>
+									<div class="project-social">
+										<ul class="list-inline">
+											<li><a href="single.html"><i class="fa fa-link"></i></a></li>
+											<li><a href="images/7.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><i class="fa fa-search"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+				<div class="text-center"><button class="btn btn-skin" id="isotopeShowMore" >Show More</button></div>
+			</div>
+		</section>
+				
+	</section>
+
+	<!--////////////////////////////////////Footer-->
+	 <!-- <footer><p>Copyright &copy; 2016.Company name All rights reserved.</p></footer> -->
+<!-- 	<footer id="footer">
+		<div class="container">
+			<div class="wrap-footer">
+				<ul class="list-inline footer-link link">
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Instagram</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Google +</a></li>
+					<li><a href="#">Pinterest</a></li>
+				</ul>
+				<div class="copyright">
+					<span>Copyright © 20xx - Designed by Zerotheme - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></span>
+				</div>
+			</div> 
+		</div>
+	</footer> -->
+	<!-- Footer -->
+	<div id="page-top"><a href="#page-top" class="btn btn-toTop"><i class="fa fa-angle-double-up"></i></a></div>
+	
+	<!-- ========== Scripts ========== -->
+	<script type="text/javascript" src="../../static/gallery-js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/SmoothScroll.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/wow.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="../../static/gallery-js/lightbox.min.js"></script>
+	
+	<!-- Definity JS -->
+	<script type="text/javascript" src="../../static/gallery-js/main.js"></script>
+	<script src="../../static/js/dataTables/jquery.dataTables.js"></script>
+    <script src="../../static/js/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable({
+                    "pageLength": 5,
+                    "lengthMenu": [1,5,25,50,75,100 ]
+                    });
+            });
+    </script>
+
+<script src="../../static/clipboard.js-master/dist/clipboard.min.js"></script>
+	<script type="text/javascript">
+		var clipboard = new ClipboardJS('.btn');
+
+		clipboard.on('success', function(e) {
+
+		console.info('Action:', e.action);
+
+		console.info('Text:', e.text);
+
+		console.info('Trigger:', e.trigger);
+
+		e.clearSelection();
+
+		});
+
+		clipboard.on('error', function(e) {
+
+		console.error('Action:', e.action);
+
+		console.error('Trigger:', e.trigger);
+
+		});
+	</script>
+	
+</div>
+</body>
+</html>
