@@ -32,9 +32,10 @@
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]
+    <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>-->
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body id="page-top" class="index-page" style="background-color:black;">
 <div class="wrap-body">
@@ -56,8 +57,8 @@
 							<div class="portfolio-box" style="width: 100%;height:224px; display: flex;">
 								<!-- 图片的位置  zoom-effect-->
 								<!-- <img src="/static/NewStaticWidgetData/raw_data/image_data/a2dp.Vol_137/headset.png" class="img-responsive" alt=""> -->
-								<img src="/static{{BaseDir}}{{info.0.path}}" class="img-responsive {{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
-									<!-- 图片的标识 -->
+								<img src="{{staticPath}}{{CLUSTER_PICTURE_RESULT_DIR}}{{info.0.path}}" class="img-responsive {{info.1.isOutlier}}" alt="" style="margin: auto;width: 224px;">
+								<!-- 图片的标识 -->
 								<p style="text-align:justify;opacity:0;font-size:0px;" id="C{{info.1.cluster_no}}">{{BaseDir}}{{info.0.path}}</p>
 							</div>
 							<div style="display:flex;">
@@ -74,7 +75,7 @@
 							<div class="portfolio-box" style="width: 100%;height:224px; display: flex;">
 								<!-- 图片的位置  zoom-effect-->
 								<!-- <img src="/static/NewStaticWidgetData/raw_data/image_data/a2dp.Vol_137/headset.png" class="img-responsive" alt=""> -->
-								<img src="{{staticPath}}{{BaseDir}}{{property.path}}" class="img-responsive {{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
+								<img src="/static{{BaseDir}}{{property.path}}" class="img-responsive {{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
 									<!-- 图片的标识 -->
 								<p style="text-align:justify;opacity:0;font-size:0px;" id="C{{property.cluster}}">{{BaseDir}}{{property.path}}</p>
 							</div>

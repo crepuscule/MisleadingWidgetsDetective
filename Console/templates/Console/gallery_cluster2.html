@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<body >
+	{{BaseDir}}
+	{{wrong}}
+<table>
+	{% for info in apkInfoTree %}
+	<tr>
+		<th>{{info.0.path}}</th>
+		<th>{{info.1.cluster_no}}</th>
+		<th>{{info.1.outlier_score}}</th>
+	</tr>
+	{% endfor %}
+</table>
+
+<table>
+	{% for tree in apkTree %}
+	<tr>
+		<th>{{tree.raw_id}}</th>
+		<th>{{tree.cluster_no}}</th>
+	</tr>
+	{% endfor %}
+</table>
+
+</body>
+</html>

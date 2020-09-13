@@ -1,0 +1,298 @@
+2020-09-13T21:40:46.221+0800 I CONTROL  [initandlisten] MongoDB starting : pid=1129046 port=27017 dbpath=/data/mongodb 64-bit host=ArchInLab
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] db version v4.0.9
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] git version: fc525e2d9b0e4bceff5c2201457e564362909765
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] modules: none
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] build environment:
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2020-09-13T21:40:46.222+0800 I CONTROL  [initandlisten] options: { storage: { dbPath: "/data/mongodb" } }
+2020-09-13T21:40:46.229+0800 I STORAGE  [initandlisten] Detected data files in /data/mongodb created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-09-13T21:40:46.229+0800 I STORAGE  [initandlisten] 
+2020-09-13T21:40:46.229+0800 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2020-09-13T21:40:46.229+0800 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2020-09-13T21:40:46.229+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=5450M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2020-09-13T21:40:47.033+0800 I STORAGE  [initandlisten] WiredTiger message [1600004447:33175][1129046:0x7f0344d47a40], txn-recover: Main recovery loop: starting at 10/2143872 to 11/256
+2020-09-13T21:40:47.108+0800 I STORAGE  [initandlisten] WiredTiger message [1600004447:108407][1129046:0x7f0344d47a40], txn-recover: Recovering log 10 through 11
+2020-09-13T21:40:47.187+0800 I STORAGE  [initandlisten] WiredTiger message [1600004447:187720][1129046:0x7f0344d47a40], txn-recover: Recovering log 11 through 11
+2020-09-13T21:40:47.226+0800 I STORAGE  [initandlisten] WiredTiger message [1600004447:226340][1129046:0x7f0344d47a40], txn-recover: Set global recovery timestamp: 0
+2020-09-13T21:40:47.463+0800 I RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] 
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] 
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2020-09-13T21:40:47.999+0800 I CONTROL  [initandlisten] 
+2020-09-13T21:40:48.209+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/mongodb/diagnostic.data'
+2020-09-13T21:40:48.222+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2020-09-13T21:40:54.711+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46628 #1 (1 connection now open)
+2020-09-13T21:40:54.712+0800 I NETWORK  [conn1] received client metadata from 127.0.0.1:46628 conn1: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.712+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46630 #2 (2 connections now open)
+2020-09-13T21:40:54.712+0800 I NETWORK  [conn2] received client metadata from 127.0.0.1:46630 conn2: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.713+0800 I NETWORK  [conn2] end connection 127.0.0.1:46630 (1 connection now open)
+2020-09-13T21:40:54.713+0800 I NETWORK  [conn1] end connection 127.0.0.1:46628 (0 connections now open)
+2020-09-13T21:40:54.713+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46632 #3 (1 connection now open)
+2020-09-13T21:40:54.714+0800 I NETWORK  [conn3] received client metadata from 127.0.0.1:46632 conn3: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.714+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46634 #4 (2 connections now open)
+2020-09-13T21:40:54.714+0800 I NETWORK  [conn4] received client metadata from 127.0.0.1:46634 conn4: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.714+0800 I NETWORK  [conn4] end connection 127.0.0.1:46634 (1 connection now open)
+2020-09-13T21:40:54.714+0800 I NETWORK  [conn3] end connection 127.0.0.1:46632 (0 connections now open)
+2020-09-13T21:40:54.715+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46636 #5 (1 connection now open)
+2020-09-13T21:40:54.715+0800 I NETWORK  [conn5] received client metadata from 127.0.0.1:46636 conn5: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.716+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46638 #6 (2 connections now open)
+2020-09-13T21:40:54.716+0800 I NETWORK  [conn6] received client metadata from 127.0.0.1:46638 conn6: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.716+0800 I NETWORK  [conn6] end connection 127.0.0.1:46638 (1 connection now open)
+2020-09-13T21:40:54.716+0800 I NETWORK  [conn5] end connection 127.0.0.1:46636 (0 connections now open)
+2020-09-13T21:40:54.717+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46640 #7 (1 connection now open)
+2020-09-13T21:40:54.717+0800 I NETWORK  [conn7] received client metadata from 127.0.0.1:46640 conn7: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.718+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46642 #8 (2 connections now open)
+2020-09-13T21:40:54.718+0800 I NETWORK  [conn8] received client metadata from 127.0.0.1:46642 conn8: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:54.718+0800 I NETWORK  [conn8] end connection 127.0.0.1:46642 (1 connection now open)
+2020-09-13T21:40:54.718+0800 I NETWORK  [conn7] end connection 127.0.0.1:46640 (0 connections now open)
+2020-09-13T21:40:55.005+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46644 #9 (1 connection now open)
+2020-09-13T21:40:55.005+0800 I NETWORK  [conn9] received client metadata from 127.0.0.1:46644 conn9: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:55.006+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46646 #10 (2 connections now open)
+2020-09-13T21:40:55.006+0800 I NETWORK  [conn10] received client metadata from 127.0.0.1:46646 conn10: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T21:40:55.007+0800 I NETWORK  [conn10] end connection 127.0.0.1:46646 (1 connection now open)
+2020-09-13T21:40:55.007+0800 I NETWORK  [conn9] end connection 127.0.0.1:46644 (0 connections now open)
+2020-09-13T21:41:01.062+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46648 #11 (1 connection now open)
+2020-09-13T21:41:01.078+0800 I NETWORK  [conn11] received client metadata from 127.0.0.1:46648 conn11: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "4.0.9" }, os: { type: "Linux", name: "ManjaroLinux", architecture: "x86_64", version: "20.1" } }
+2020-09-13T22:00:16.628+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46678 #12 (2 connections now open)
+2020-09-13T22:00:16.629+0800 I NETWORK  [conn12] received client metadata from 127.0.0.1:46678 conn12: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.629+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46680 #13 (3 connections now open)
+2020-09-13T22:00:16.629+0800 I NETWORK  [conn13] received client metadata from 127.0.0.1:46680 conn13: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.630+0800 I NETWORK  [conn13] end connection 127.0.0.1:46680 (2 connections now open)
+2020-09-13T22:00:16.630+0800 I NETWORK  [conn12] end connection 127.0.0.1:46678 (1 connection now open)
+2020-09-13T22:00:16.630+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46682 #14 (2 connections now open)
+2020-09-13T22:00:16.630+0800 I NETWORK  [conn14] received client metadata from 127.0.0.1:46682 conn14: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.631+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46684 #15 (3 connections now open)
+2020-09-13T22:00:16.631+0800 I NETWORK  [conn15] received client metadata from 127.0.0.1:46684 conn15: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.631+0800 I NETWORK  [conn15] end connection 127.0.0.1:46684 (2 connections now open)
+2020-09-13T22:00:16.631+0800 I NETWORK  [conn14] end connection 127.0.0.1:46682 (1 connection now open)
+2020-09-13T22:00:16.632+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46686 #16 (2 connections now open)
+2020-09-13T22:00:16.632+0800 I NETWORK  [conn16] received client metadata from 127.0.0.1:46686 conn16: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.632+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46688 #17 (3 connections now open)
+2020-09-13T22:00:16.633+0800 I NETWORK  [conn17] received client metadata from 127.0.0.1:46688 conn17: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.633+0800 I NETWORK  [conn17] end connection 127.0.0.1:46688 (2 connections now open)
+2020-09-13T22:00:16.633+0800 I NETWORK  [conn16] end connection 127.0.0.1:46686 (1 connection now open)
+2020-09-13T22:00:16.634+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46690 #18 (2 connections now open)
+2020-09-13T22:00:16.634+0800 I NETWORK  [conn18] received client metadata from 127.0.0.1:46690 conn18: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.634+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46692 #19 (3 connections now open)
+2020-09-13T22:00:16.634+0800 I NETWORK  [conn19] received client metadata from 127.0.0.1:46692 conn19: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.635+0800 I NETWORK  [conn19] end connection 127.0.0.1:46692 (2 connections now open)
+2020-09-13T22:00:16.635+0800 I NETWORK  [conn18] end connection 127.0.0.1:46690 (1 connection now open)
+2020-09-13T22:00:16.636+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46694 #20 (2 connections now open)
+2020-09-13T22:00:16.637+0800 I NETWORK  [conn20] received client metadata from 127.0.0.1:46694 conn20: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.637+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46696 #21 (3 connections now open)
+2020-09-13T22:00:16.637+0800 I NETWORK  [conn21] received client metadata from 127.0.0.1:46696 conn21: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.637+0800 I NETWORK  [conn21] end connection 127.0.0.1:46696 (2 connections now open)
+2020-09-13T22:00:16.637+0800 I NETWORK  [conn20] end connection 127.0.0.1:46694 (1 connection now open)
+2020-09-13T22:00:16.898+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46698 #22 (2 connections now open)
+2020-09-13T22:00:16.899+0800 I NETWORK  [conn22] received client metadata from 127.0.0.1:46698 conn22: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.899+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46700 #23 (3 connections now open)
+2020-09-13T22:00:16.899+0800 I NETWORK  [conn23] received client metadata from 127.0.0.1:46700 conn23: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:00:16.900+0800 I NETWORK  [conn23] end connection 127.0.0.1:46700 (2 connections now open)
+2020-09-13T22:00:16.900+0800 I NETWORK  [conn22] end connection 127.0.0.1:46698 (1 connection now open)
+2020-09-13T22:02:30.602+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46704 #24 (2 connections now open)
+2020-09-13T22:02:30.603+0800 I NETWORK  [conn24] received client metadata from 127.0.0.1:46704 conn24: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.603+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46706 #25 (3 connections now open)
+2020-09-13T22:02:30.603+0800 I NETWORK  [conn25] received client metadata from 127.0.0.1:46706 conn25: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.604+0800 I NETWORK  [conn25] end connection 127.0.0.1:46706 (2 connections now open)
+2020-09-13T22:02:30.604+0800 I NETWORK  [conn24] end connection 127.0.0.1:46704 (1 connection now open)
+2020-09-13T22:02:30.604+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46708 #26 (2 connections now open)
+2020-09-13T22:02:30.604+0800 I NETWORK  [conn26] received client metadata from 127.0.0.1:46708 conn26: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.605+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46710 #27 (3 connections now open)
+2020-09-13T22:02:30.605+0800 I NETWORK  [conn27] received client metadata from 127.0.0.1:46710 conn27: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.605+0800 I NETWORK  [conn27] end connection 127.0.0.1:46710 (2 connections now open)
+2020-09-13T22:02:30.605+0800 I NETWORK  [conn26] end connection 127.0.0.1:46708 (1 connection now open)
+2020-09-13T22:02:30.606+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46712 #28 (2 connections now open)
+2020-09-13T22:02:30.606+0800 I NETWORK  [conn28] received client metadata from 127.0.0.1:46712 conn28: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.606+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46714 #29 (3 connections now open)
+2020-09-13T22:02:30.607+0800 I NETWORK  [conn29] received client metadata from 127.0.0.1:46714 conn29: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.607+0800 I NETWORK  [conn29] end connection 127.0.0.1:46714 (2 connections now open)
+2020-09-13T22:02:30.607+0800 I NETWORK  [conn28] end connection 127.0.0.1:46712 (1 connection now open)
+2020-09-13T22:02:30.608+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46716 #30 (2 connections now open)
+2020-09-13T22:02:30.608+0800 I NETWORK  [conn30] received client metadata from 127.0.0.1:46716 conn30: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.608+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46718 #31 (3 connections now open)
+2020-09-13T22:02:30.608+0800 I NETWORK  [conn31] received client metadata from 127.0.0.1:46718 conn31: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.609+0800 I NETWORK  [conn31] end connection 127.0.0.1:46718 (2 connections now open)
+2020-09-13T22:02:30.609+0800 I NETWORK  [conn30] end connection 127.0.0.1:46716 (1 connection now open)
+2020-09-13T22:02:30.610+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46720 #32 (2 connections now open)
+2020-09-13T22:02:30.610+0800 I NETWORK  [conn32] received client metadata from 127.0.0.1:46720 conn32: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.611+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46722 #33 (3 connections now open)
+2020-09-13T22:02:30.611+0800 I NETWORK  [conn33] received client metadata from 127.0.0.1:46722 conn33: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.611+0800 I NETWORK  [conn33] end connection 127.0.0.1:46722 (2 connections now open)
+2020-09-13T22:02:30.611+0800 I NETWORK  [conn32] end connection 127.0.0.1:46720 (1 connection now open)
+2020-09-13T22:02:30.871+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46724 #34 (2 connections now open)
+2020-09-13T22:02:30.871+0800 I NETWORK  [conn34] received client metadata from 127.0.0.1:46724 conn34: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.872+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46726 #35 (3 connections now open)
+2020-09-13T22:02:30.872+0800 I NETWORK  [conn35] received client metadata from 127.0.0.1:46726 conn35: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:02:30.872+0800 I NETWORK  [conn35] end connection 127.0.0.1:46726 (2 connections now open)
+2020-09-13T22:02:30.872+0800 I NETWORK  [conn34] end connection 127.0.0.1:46724 (1 connection now open)
+2020-09-13T22:03:55.199+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46734 #36 (2 connections now open)
+2020-09-13T22:03:55.199+0800 I NETWORK  [conn36] received client metadata from 127.0.0.1:46734 conn36: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.199+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46736 #37 (3 connections now open)
+2020-09-13T22:03:55.200+0800 I NETWORK  [conn37] received client metadata from 127.0.0.1:46736 conn37: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.200+0800 I NETWORK  [conn37] end connection 127.0.0.1:46736 (2 connections now open)
+2020-09-13T22:03:55.200+0800 I NETWORK  [conn36] end connection 127.0.0.1:46734 (1 connection now open)
+2020-09-13T22:03:55.201+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46738 #38 (2 connections now open)
+2020-09-13T22:03:55.201+0800 I NETWORK  [conn38] received client metadata from 127.0.0.1:46738 conn38: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.201+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46740 #39 (3 connections now open)
+2020-09-13T22:03:55.201+0800 I NETWORK  [conn39] received client metadata from 127.0.0.1:46740 conn39: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.202+0800 I NETWORK  [conn39] end connection 127.0.0.1:46740 (2 connections now open)
+2020-09-13T22:03:55.202+0800 I NETWORK  [conn38] end connection 127.0.0.1:46738 (1 connection now open)
+2020-09-13T22:03:55.202+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46742 #40 (2 connections now open)
+2020-09-13T22:03:55.203+0800 I NETWORK  [conn40] received client metadata from 127.0.0.1:46742 conn40: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.203+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46744 #41 (3 connections now open)
+2020-09-13T22:03:55.203+0800 I NETWORK  [conn41] received client metadata from 127.0.0.1:46744 conn41: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.204+0800 I NETWORK  [conn41] end connection 127.0.0.1:46744 (2 connections now open)
+2020-09-13T22:03:55.204+0800 I NETWORK  [conn40] end connection 127.0.0.1:46742 (1 connection now open)
+2020-09-13T22:03:55.204+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46746 #42 (2 connections now open)
+2020-09-13T22:03:55.204+0800 I NETWORK  [conn42] received client metadata from 127.0.0.1:46746 conn42: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.205+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46748 #43 (3 connections now open)
+2020-09-13T22:03:55.205+0800 I NETWORK  [conn43] received client metadata from 127.0.0.1:46748 conn43: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.205+0800 I NETWORK  [conn43] end connection 127.0.0.1:46748 (2 connections now open)
+2020-09-13T22:03:55.205+0800 I NETWORK  [conn42] end connection 127.0.0.1:46746 (1 connection now open)
+2020-09-13T22:03:55.207+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46750 #44 (2 connections now open)
+2020-09-13T22:03:55.207+0800 I NETWORK  [conn44] received client metadata from 127.0.0.1:46750 conn44: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.207+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46752 #45 (3 connections now open)
+2020-09-13T22:03:55.207+0800 I NETWORK  [conn45] received client metadata from 127.0.0.1:46752 conn45: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.208+0800 I NETWORK  [conn45] end connection 127.0.0.1:46752 (2 connections now open)
+2020-09-13T22:03:55.208+0800 I NETWORK  [conn44] end connection 127.0.0.1:46750 (1 connection now open)
+2020-09-13T22:03:55.686+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46754 #46 (2 connections now open)
+2020-09-13T22:03:55.686+0800 I NETWORK  [conn46] received client metadata from 127.0.0.1:46754 conn46: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.686+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46756 #47 (3 connections now open)
+2020-09-13T22:03:55.686+0800 I NETWORK  [conn47] received client metadata from 127.0.0.1:46756 conn47: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:03:55.687+0800 I NETWORK  [conn47] end connection 127.0.0.1:46756 (2 connections now open)
+2020-09-13T22:03:55.687+0800 I NETWORK  [conn46] end connection 127.0.0.1:46754 (1 connection now open)
+2020-09-13T22:05:54.371+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46758 #48 (2 connections now open)
+2020-09-13T22:05:54.371+0800 I NETWORK  [conn48] received client metadata from 127.0.0.1:46758 conn48: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:54.372+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46760 #49 (3 connections now open)
+2020-09-13T22:05:54.372+0800 I NETWORK  [conn49] received client metadata from 127.0.0.1:46760 conn49: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:54.379+0800 I NETWORK  [conn49] end connection 127.0.0.1:46760 (2 connections now open)
+2020-09-13T22:05:54.379+0800 I NETWORK  [conn48] end connection 127.0.0.1:46758 (1 connection now open)
+2020-09-13T22:05:57.350+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46762 #50 (2 connections now open)
+2020-09-13T22:05:57.350+0800 I NETWORK  [conn50] received client metadata from 127.0.0.1:46762 conn50: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.351+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46764 #51 (3 connections now open)
+2020-09-13T22:05:57.351+0800 I NETWORK  [conn51] received client metadata from 127.0.0.1:46764 conn51: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.352+0800 I NETWORK  [conn51] end connection 127.0.0.1:46764 (2 connections now open)
+2020-09-13T22:05:57.352+0800 I NETWORK  [conn50] end connection 127.0.0.1:46762 (1 connection now open)
+2020-09-13T22:05:57.353+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46766 #52 (2 connections now open)
+2020-09-13T22:05:57.354+0800 I NETWORK  [conn52] received client metadata from 127.0.0.1:46766 conn52: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.354+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46768 #53 (3 connections now open)
+2020-09-13T22:05:57.354+0800 I NETWORK  [conn53] received client metadata from 127.0.0.1:46768 conn53: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.355+0800 I NETWORK  [conn53] end connection 127.0.0.1:46768 (2 connections now open)
+2020-09-13T22:05:57.355+0800 I NETWORK  [conn52] end connection 127.0.0.1:46766 (1 connection now open)
+2020-09-13T22:05:57.356+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46770 #54 (2 connections now open)
+2020-09-13T22:05:57.356+0800 I NETWORK  [conn54] received client metadata from 127.0.0.1:46770 conn54: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.357+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46772 #55 (3 connections now open)
+2020-09-13T22:05:57.357+0800 I NETWORK  [conn55] received client metadata from 127.0.0.1:46772 conn55: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.358+0800 I NETWORK  [conn55] end connection 127.0.0.1:46772 (2 connections now open)
+2020-09-13T22:05:57.358+0800 I NETWORK  [conn54] end connection 127.0.0.1:46770 (1 connection now open)
+2020-09-13T22:05:57.358+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46774 #56 (2 connections now open)
+2020-09-13T22:05:57.359+0800 I NETWORK  [conn56] received client metadata from 127.0.0.1:46774 conn56: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.359+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46776 #57 (3 connections now open)
+2020-09-13T22:05:57.359+0800 I NETWORK  [conn57] received client metadata from 127.0.0.1:46776 conn57: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.360+0800 I NETWORK  [conn57] end connection 127.0.0.1:46776 (2 connections now open)
+2020-09-13T22:05:57.360+0800 I NETWORK  [conn56] end connection 127.0.0.1:46774 (1 connection now open)
+2020-09-13T22:05:57.623+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46778 #58 (2 connections now open)
+2020-09-13T22:05:57.624+0800 I NETWORK  [conn58] received client metadata from 127.0.0.1:46778 conn58: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.624+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46780 #59 (3 connections now open)
+2020-09-13T22:05:57.624+0800 I NETWORK  [conn59] received client metadata from 127.0.0.1:46780 conn59: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:05:57.625+0800 I NETWORK  [conn59] end connection 127.0.0.1:46780 (2 connections now open)
+2020-09-13T22:05:57.625+0800 I NETWORK  [conn58] end connection 127.0.0.1:46778 (1 connection now open)
+2020-09-13T22:08:16.759+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46788 #60 (2 connections now open)
+2020-09-13T22:08:16.759+0800 I NETWORK  [conn60] received client metadata from 127.0.0.1:46788 conn60: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.759+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46790 #61 (3 connections now open)
+2020-09-13T22:08:16.759+0800 I NETWORK  [conn61] received client metadata from 127.0.0.1:46790 conn61: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.760+0800 I NETWORK  [conn61] end connection 127.0.0.1:46790 (2 connections now open)
+2020-09-13T22:08:16.760+0800 I NETWORK  [conn60] end connection 127.0.0.1:46788 (1 connection now open)
+2020-09-13T22:08:16.760+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46792 #62 (2 connections now open)
+2020-09-13T22:08:16.761+0800 I NETWORK  [conn62] received client metadata from 127.0.0.1:46792 conn62: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.761+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46794 #63 (3 connections now open)
+2020-09-13T22:08:16.761+0800 I NETWORK  [conn63] received client metadata from 127.0.0.1:46794 conn63: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.761+0800 I NETWORK  [conn63] end connection 127.0.0.1:46794 (2 connections now open)
+2020-09-13T22:08:16.762+0800 I NETWORK  [conn62] end connection 127.0.0.1:46792 (1 connection now open)
+2020-09-13T22:08:16.762+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46796 #64 (2 connections now open)
+2020-09-13T22:08:16.762+0800 I NETWORK  [conn64] received client metadata from 127.0.0.1:46796 conn64: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.763+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46798 #65 (3 connections now open)
+2020-09-13T22:08:16.763+0800 I NETWORK  [conn65] received client metadata from 127.0.0.1:46798 conn65: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.763+0800 I NETWORK  [conn65] end connection 127.0.0.1:46798 (2 connections now open)
+2020-09-13T22:08:16.764+0800 I NETWORK  [conn64] end connection 127.0.0.1:46796 (1 connection now open)
+2020-09-13T22:08:16.764+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46800 #66 (2 connections now open)
+2020-09-13T22:08:16.764+0800 I NETWORK  [conn66] received client metadata from 127.0.0.1:46800 conn66: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.765+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46802 #67 (3 connections now open)
+2020-09-13T22:08:16.765+0800 I NETWORK  [conn67] received client metadata from 127.0.0.1:46802 conn67: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:16.765+0800 I NETWORK  [conn67] end connection 127.0.0.1:46802 (2 connections now open)
+2020-09-13T22:08:16.765+0800 I NETWORK  [conn66] end connection 127.0.0.1:46800 (1 connection now open)
+2020-09-13T22:08:17.141+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46804 #68 (2 connections now open)
+2020-09-13T22:08:17.142+0800 I NETWORK  [conn68] received client metadata from 127.0.0.1:46804 conn68: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:17.143+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46806 #69 (3 connections now open)
+2020-09-13T22:08:17.143+0800 I NETWORK  [conn69] received client metadata from 127.0.0.1:46806 conn69: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:08:17.144+0800 I NETWORK  [conn69] end connection 127.0.0.1:46806 (2 connections now open)
+2020-09-13T22:08:17.144+0800 I NETWORK  [conn68] end connection 127.0.0.1:46804 (1 connection now open)
+2020-09-13T22:09:03.790+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46810 #70 (2 connections now open)
+2020-09-13T22:09:03.791+0800 I NETWORK  [conn70] received client metadata from 127.0.0.1:46810 conn70: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.792+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46812 #71 (3 connections now open)
+2020-09-13T22:09:03.793+0800 I NETWORK  [conn71] received client metadata from 127.0.0.1:46812 conn71: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.794+0800 I NETWORK  [conn71] end connection 127.0.0.1:46812 (2 connections now open)
+2020-09-13T22:09:03.794+0800 I NETWORK  [conn70] end connection 127.0.0.1:46810 (1 connection now open)
+2020-09-13T22:09:03.797+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46814 #72 (2 connections now open)
+2020-09-13T22:09:03.797+0800 I NETWORK  [conn72] received client metadata from 127.0.0.1:46814 conn72: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.798+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46816 #73 (3 connections now open)
+2020-09-13T22:09:03.798+0800 I NETWORK  [conn73] received client metadata from 127.0.0.1:46816 conn73: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.799+0800 I NETWORK  [conn73] end connection 127.0.0.1:46816 (2 connections now open)
+2020-09-13T22:09:03.799+0800 I NETWORK  [conn72] end connection 127.0.0.1:46814 (1 connection now open)
+2020-09-13T22:09:03.800+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46818 #74 (2 connections now open)
+2020-09-13T22:09:03.800+0800 I NETWORK  [conn74] received client metadata from 127.0.0.1:46818 conn74: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.801+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46820 #75 (3 connections now open)
+2020-09-13T22:09:03.801+0800 I NETWORK  [conn75] received client metadata from 127.0.0.1:46820 conn75: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.802+0800 I NETWORK  [conn75] end connection 127.0.0.1:46820 (2 connections now open)
+2020-09-13T22:09:03.802+0800 I NETWORK  [conn74] end connection 127.0.0.1:46818 (1 connection now open)
+2020-09-13T22:09:03.802+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46822 #76 (2 connections now open)
+2020-09-13T22:09:03.803+0800 I NETWORK  [conn76] received client metadata from 127.0.0.1:46822 conn76: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.803+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46824 #77 (3 connections now open)
+2020-09-13T22:09:03.803+0800 I NETWORK  [conn77] received client metadata from 127.0.0.1:46824 conn77: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:03.804+0800 I NETWORK  [conn77] end connection 127.0.0.1:46824 (2 connections now open)
+2020-09-13T22:09:03.804+0800 I NETWORK  [conn76] end connection 127.0.0.1:46822 (1 connection now open)
+2020-09-13T22:09:04.065+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46826 #78 (2 connections now open)
+2020-09-13T22:09:04.065+0800 I NETWORK  [conn78] received client metadata from 127.0.0.1:46826 conn78: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:04.066+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46828 #79 (3 connections now open)
+2020-09-13T22:09:04.066+0800 I NETWORK  [conn79] received client metadata from 127.0.0.1:46828 conn79: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:04.067+0800 I NETWORK  [conn79] end connection 127.0.0.1:46828 (2 connections now open)
+2020-09-13T22:09:04.067+0800 I NETWORK  [conn78] end connection 127.0.0.1:46826 (1 connection now open)
+2020-09-13T22:09:15.261+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46830 #80 (2 connections now open)
+2020-09-13T22:09:15.262+0800 I NETWORK  [conn80] received client metadata from 127.0.0.1:46830 conn80: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.263+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46832 #81 (3 connections now open)
+2020-09-13T22:09:15.264+0800 I NETWORK  [conn81] received client metadata from 127.0.0.1:46832 conn81: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.264+0800 I NETWORK  [conn81] end connection 127.0.0.1:46832 (2 connections now open)
+2020-09-13T22:09:15.264+0800 I NETWORK  [conn80] end connection 127.0.0.1:46830 (1 connection now open)
+2020-09-13T22:09:15.265+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46834 #82 (2 connections now open)
+2020-09-13T22:09:15.265+0800 I NETWORK  [conn82] received client metadata from 127.0.0.1:46834 conn82: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.265+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46836 #83 (3 connections now open)
+2020-09-13T22:09:15.265+0800 I NETWORK  [conn83] received client metadata from 127.0.0.1:46836 conn83: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.266+0800 I NETWORK  [conn83] end connection 127.0.0.1:46836 (2 connections now open)
+2020-09-13T22:09:15.266+0800 I NETWORK  [conn82] end connection 127.0.0.1:46834 (1 connection now open)
+2020-09-13T22:09:15.266+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46838 #84 (2 connections now open)
+2020-09-13T22:09:15.267+0800 I NETWORK  [conn84] received client metadata from 127.0.0.1:46838 conn84: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.267+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46840 #85 (3 connections now open)
+2020-09-13T22:09:15.267+0800 I NETWORK  [conn85] received client metadata from 127.0.0.1:46840 conn85: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.267+0800 I NETWORK  [conn85] end connection 127.0.0.1:46840 (2 connections now open)
+2020-09-13T22:09:15.267+0800 I NETWORK  [conn84] end connection 127.0.0.1:46838 (1 connection now open)
+2020-09-13T22:09:15.268+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46842 #86 (2 connections now open)
+2020-09-13T22:09:15.268+0800 I NETWORK  [conn86] received client metadata from 127.0.0.1:46842 conn86: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.269+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46844 #87 (3 connections now open)
+2020-09-13T22:09:15.269+0800 I NETWORK  [conn87] received client metadata from 127.0.0.1:46844 conn87: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.269+0800 I NETWORK  [conn87] end connection 127.0.0.1:46844 (2 connections now open)
+2020-09-13T22:09:15.269+0800 I NETWORK  [conn86] end connection 127.0.0.1:46842 (1 connection now open)
+2020-09-13T22:09:15.533+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46846 #88 (2 connections now open)
+2020-09-13T22:09:15.534+0800 I NETWORK  [conn88] received client metadata from 127.0.0.1:46846 conn88: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.534+0800 I NETWORK  [listener] connection accepted from 127.0.0.1:46848 #89 (3 connections now open)
+2020-09-13T22:09:15.534+0800 I NETWORK  [conn89] received client metadata from 127.0.0.1:46848 conn89: { driver: { name: "PyMongo", version: "3.4.0" }, os: { type: "Linux", name: "arch Manjaro Linux", architecture: "x86_64", version: "5.4.60-2-MANJARO" }, platform: "CPython 3.6.2.final.0" }
+2020-09-13T22:09:15.535+0800 I NETWORK  [conn89] end connection 127.0.0.1:46848 (2 connections now open)
+2020-09-13T22:09:15.535+0800 I NETWORK  [conn88] end connection 127.0.0.1:46846 (1 connection now open)

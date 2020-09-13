@@ -8,9 +8,9 @@ app_name='[Console]'
 # 本文件设置本应用的路由
 urlpatterns = [
     path('',views.index,name='index'),
-    path('console',views.console), 
-    path('gallery',views.gallery), 
+    path('homepage',views.homepage), 
+    path('console/<str:projectName>/<str:subtask_name>',views.console), 
+    path('gallery/<str:projectName>/<str:subtask_name>/<str:galleryId>',views.gallery), 
     path('tagging',views.tagging), 
-
 ]
 
