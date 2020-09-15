@@ -1,3 +1,7 @@
+'''
+3. 整个流程的切换问题以及主界面的布置问题
+'''
+
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 import re
@@ -95,7 +99,10 @@ def console(request,projectName='MW_pca',subtask_name='spm_pca300_optics3'):
     print('metadata',metadata)
     print('config',config)
 
-    context = {'metadata':metadata[0],'configLists':parsingConfig,'staticPath':'http://172.17.9.13:8000/static','language':'zh','clusterPictureDir':config['CLUSTER_PICTURE_RESULT_DIR']}
+    canPreview = parsingConfig['CLUSTER_PICTURE_RESULT_DIR']['isExist']
+    if canPreview == False: canPreview = ' disabled="disabled"'
+    else: canPreview = ''
+    context = {'metadata':metadata[0],'configLists':parsingConfig,'staticPath':'http://172.17.9.13:8000/static','language':'zh','clusterPictureDir':config['CLUSTER_PICTURE_RESULT_DIR'],'canPreview':canPreview}
     #return JsonResponse({'message':'Hello world'})
     return render(request,'Console/console.html',context)
     #return HttpResponse("Hello world")
@@ -123,9 +130,10 @@ def gallery(request,projectName='MW_lle',subtask_name='spm_lle150_optics3',galle
         apkTree[i]['isOutlier'] = ''
         if float(apkTree[i]['outlier_score']) <= -0.55:
             apkTree[i]['isOutlier'] = 'outlier'
+        rawapkTree[i]['widget'] = ''.join(rawapkTree[i]['widget'].split(','))
         apkInfoTree.append((rawapkTree[i],apkTree[i]))
 
-    context = {'BaseDir':config['PICTURES_DIR'],'apkInfoTree':apkInfoTree,'apkTree':apkTree,'cluster_num':range(int(metadata[0]['clusters'])),'staticPath':'http://172.17.9.13:8000/static','language':'zh'}
+    context = {'BaseDir':config['PICTURES_DIR'],'apkInfoTree':apkInfoTree,'apkTree':apkTree,'max_cluster':metadata[0]['clusters'],'cluster_num':range(int(metadata[0]['clusters'])),'staticPath':'http://172.17.9.13:8000/static','language':'zh'}
 
     if galleryId == 'outlier':
         return render(request,'Console/gallery_outlier.html',context)

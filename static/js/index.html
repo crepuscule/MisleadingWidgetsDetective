@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>html5slider: &lt;input type=range&gt; for Firefox</title>
+	<style>
+		ody {
+		  text-align: right;
+		}
+		input[type=range]:first-of-type {
+		  width: 700px;
+		}
+		iv {
+		  margin-bottom: 8px;
+		}
+		#one {
+			transform: rotate(90deg);
+			-ms-transform: rotate(90deg); /* IE 9 */
+			-moz-transform: rotate(90deg); /* Firefox */
+			-webkit-transform: rotate(90deg); /* Safari and Chrome */
+			-o-transform: rotate(90deg); /* Opera */
+		}
+	</style>
+</head>
+<body>
+		
+		<input type="range" value="0" min="0" max="111" id="one" style="position: fixed;bottom:50%;right:-15%;" />
+		<div id="uno" style="position: fixed;bottom:10%;right:3%;">&nbsp;</div>
+
+
+</body>
+<script src="html5slider.js"></script>
+<script>
+function $(id) { return document.getElementById(id); }
+onload = function() {
+  $('one').oninput = function() { $('uno').innerHTML = this.value; };
+  $('one').oninput();
+  $('two').oninput = function() { $('dos').innerHTML = this.value; };
+  $('two').oninput();
+  $('mms').innerHTML =
+    ['min: ' + $('two').min,
+     'max: ' + $('two').max,
+     'step: ' + $('two').step].join(', ');
+};
+</script>
+</html>
+

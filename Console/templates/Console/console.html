@@ -469,47 +469,27 @@
                                         <tr>
 					     <td>簇直方图</td>
 					     <td>
-						<!-- 模态框（Modal） -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-										</button>
-										<h4 class="modal-title" id="myModalLabel">
-											模态框（Modal）标题
-										</h4>
-									</div>
-									<div class="modal-body">
-										<img src="{{staticPath}}{{clusterPictureDir}}Histogram.jpg">图片加载失败</img>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">
-											关闭
-										</button>
-									</div>
-								</div><!-- /.modal-content -->
-							</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-					        <button href="" data-toggle="modal" data-target="#myModal" class="btn btn-default">查看</button>
+					        <button href="" data-toggle="modal" data-target="#myModal" class="btn btn-default" {{canPreview}}>查看</button>
 					    </td>
                                         </tr>
                                         <tr>
                                             <td>簇预览</td>
-					     <td><a href="/Console/gallery/{{metadata.projectName}}/{{metadata.subtask_name}}/cluster" class="btn btn-success">查看</a></td>
+					     <td><a href="/Console/gallery/{{metadata.projectName}}/{{metadata.subtask_name}}/cluster" class="btn btn-success" {{canPreview}}>查看</a></td>
                                         </tr>
                                         <tr>
                                             <td>异常控件预览</td>
-					     <td><a href="/Console/gallery/{{metadata.projectName}}/{{metadata.subtask_name}}/outlier" class="btn btn-info">查看</a></td>
+					     <td><a href="/Console/gallery/{{metadata.projectName}}/{{metadata.subtask_name}}/outlier" class="btn btn-info" {{canPreview}}>查看</a></td>
                                         </tr>
                                         <tr>
                                             <td>异常检测评价</td>
-					     <td><a href="{{metadata.cutdimway}}" class="btn btn-warning">评价</a></td>
+					     <td><a href="{{metadata.cutdimway}}" class="btn btn-warning" {{canPreview}}>评价</a></td>
                                         </tr>
 					{% else %}
                                         <tr>
                                             <td>Clusters Histogram</td>
-					     <td><a href="{{metadata.cutdimway}}" class="btn btn-default">preview</a></td>
+                                            <td>
+					        <button href="" data-toggle="modal" data-target="#myModal" class="btn btn-default">preview</button>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Clusters Preview</td>
@@ -640,6 +620,36 @@
     <!-- /. WRAPPER  -->  
     </div>    
 
+<!-- 模态框（Modal） -->
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg" style="width:80%">
+		<div class="modal-content" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+				     {% if language == 'zh' %}
+					簇直方图
+				     {% else %}
+					Cluster Histogram
+				     {% endif %}
+				</h4>
+			</div>
+			<div class="modal-body">
+				<img src="{{staticPath}}{{clusterPictureDir}}Histogram.jpg" height="100%" width="100%" ></img>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+				     {% if language == 'zh' %}
+					关闭
+				     {% else %}
+					Close
+				     {% endif %}
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
     <!-- JS Scripts-->
     <!-- jQuery Js -->

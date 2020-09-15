@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<body id="page-top" class="index-page" style="background-color:black;">
+	<div>
+                {% for info in apkInfoTree %}
+		<div style="width:224px;height:224px;">
+			<img src="/static{{BaseDir}}{{info.0.path}}" class="{{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
+				<!-- 图片的标识 -->
+			<p style="text-align:justify;opacity:0;font-size:0px;" id="C{{info.1.cluster_no}}">{{BaseDir}}{{info.0.path}}</p>
+			<div style="display:flex;">
+				<!-- <input type="hidden"  value="{{BaseDir}}{{property}}">  -->
+				<button type="button" class="btn btn-default" style="margin:auto;" data-clipboard-target="#C{{info.cluster_no}}">
+					{{info.0.widget}}</button>
+			</div>
+		</div>
+                {% endfor %}
+	</div>
+	
+				<div class="isotopeContainer col-lg-9 col-sm-9 col-md-9" style="text-align:center;display: flex;">
+                                        {% for info in apkInfoTree %}
+						<div class="col-lg-3 col-sm-3 col-md-3 isotopeSelector C{{info.1.cluster_no}} " style="margin-botom:10px;">
+							<div class="portfolio-box" style="width: 100%;height:224px; display: flex;">
+								<!-- 图片的位置  zoom-effect-->
+								<!-- <img src="/static/NewStaticWidgetData/raw_data/image_data/a2dp.Vol_137/headset.png" class="img-responsive" alt=""> -->
+								<img src="/static{{BaseDir}}{{info.0.path}}" class="img-responsive {{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
+									<!-- 图片的标识 -->
+								<p style="text-align:justify;opacity:0;font-size:0px;" id="C{{info.1.cluster_no}}">{{BaseDir}}{{info.0.path}}</p>
+							</div>
+							<div style="display:flex;">
+								<!-- <input type="hidden"  value="{{BaseDir}}{{property}}">  -->
+								<button type="button" class="btn btn-default" style="margin:auto;" data-clipboard-target="#C{{info.cluster_no}}">
+									{{info.0.widget}}</button>
+							</div>
+						</div>
+                                        {% endfor %}
+					{% for app,widget in picutreLists.items %}                   
+						{% for name,property in widget.items %} 
+						<!-- 类属性中具有簇标识 -->
+						<div class="col-lg-3 col-sm-3 col-md-3 isotopeSelector C{{property.cluster}} " style="margin-botom:10px;">
+							<div class="portfolio-box" style="width: 100%;height:224px; display: flex;">
+								<!-- 图片的位置  zoom-effect-->
+								<!-- <img src="/static/NewStaticWidgetData/raw_data/image_data/a2dp.Vol_137/headset.png" class="img-responsive" alt=""> -->
+								<img src="{{staticPath}}{{BaseDir}}{{property.path}}" class="img-responsive {{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
+									<!-- 图片的标识 -->
+								<p style="text-align:justify;opacity:0;font-size:0px;" id="C{{property.cluster}}">{{BaseDir}}{{property.path}}</p>
+							</div>
+							<div style="display:flex;">
+								<!-- <input type="hidden"  value="{{BaseDir}}{{property}}">  -->
+								<button type="button" class="btn btn-default" style="margin:auto;" data-clipboard-target="#C{{property.cluster}}">
+									{{name}}</button>
+							</div>
+						</div>
+						{%endfor%}
+					{%endfor%}
+				</div>
+				<div class="filter-container isotopeFilters col-lg-3 col-sm-3 col-md-3" >
+<!-- 					<ul class="list-inline filter">
+						<li class="active"><button class="btn btn-isoFilter" data-filter="*">All </button></li>
+						{% for app,widget in picutreLists.items %} 
+						<li><button class="btn btn-isoFilter" data-filter=".{{app}}">{{app}}</button></li>
+						{% endfor %}						
+					</ul> -->
+					<div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover filter  col-lg-1 col-sm-1 col-md-1" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                    	<th>Cluster No</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+                                                	{% for num in cluster_num %} 
+                            				<tr style="text-align:center;" >
+                            					<th><button type="button" class="btn btn-default"  data-filter=".C{{num}}">{{num}}</button></th>
+                            					<!-- class="btn btn-isoFilter" -->
+                            				</tr>
+                                                	{% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+				</div>
+				<div class="text-center col-lg-12 col-sm-12 col-md-12">
+					<button class="btn btn-skin" id="isotopeShowMore" >Show More</button>
+				</div>
+			</div>
+		</section>
+				
+	</section>
+
+
+	
+	<!-- ========== Scripts ========== -->
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/SmoothScroll.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/wow.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/lightbox.min.js"></script>
+	
+	<!-- Definity JS -->
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/main.js"></script>
+	<script src="{{staticPath}}/js/dataTables/jquery.dataTables.js"></script>
+    <script src="{{staticPath}}/js/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable({
+	            "info":false,
+		    "scrollX": false,
+		    "scrollY": false,
+	            "bAutoWidth": false,
+	            "bLengthChange": true,
+                    "pageLength": 5,
+		    "pagingType": "simple",
+                    "lengthMenu": [1,5,25,50,75,100 ],
+		    language:{
+			"sSearch":"",
+		    }
+                    });
+            });
+    </script>
+
+<script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+	<script type="text/javascript">
+		var clipboard = new ClipboardJS('.btn');
+
+		clipboard.on('success', function(e) {
+
+		console.info('Action:', e.action);
+
+		console.info('Text:', e.text);
+
+		console.info('Trigger:', e.trigger);
+
+		e.clearSelection();
+
+		});
+
+		clipboard.on('error', function(e) {
+
+		console.error('Action:', e.action);
+
+		console.error('Trigger:', e.trigger);
+
+		});
+	</script>
+	
+</div>
+</body>
+</html>
