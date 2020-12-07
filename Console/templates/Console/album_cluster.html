@@ -7,7 +7,7 @@
     <!-- Bootstrap Styles-->
     <link href="{{staticPath}}/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link href="{{staticPath}}/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css">
     <!-- Custom Styles-->
     <link href="{{staticPath}}/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
@@ -69,7 +69,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-gear"></i> <strong>HYBRID</strong></a>
+		<a class="navbar-brand" href="index.html"> <i class="fa fa-search"></i> <strong>Misleading</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -288,20 +288,23 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a href="/Console/homepage" ><i class="fa fa-dashboard"></i> Dashboard</a>
-                    </li>
-
-					<li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Charts</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/Console/console" ><i class="fa fa-table"></i> Console</a>
+                        <a href="/Console/home"><i class="fa fa-dashboard"></i> Home </a>
                     </li>
                     <li>
-                        <a href="/Console/gallery" class="active-menu"><i class="fa fa-edit"></i> Gallery </a>
+                        <a href="/Console/console"><i class="fa fa-dashboard"></i> Console </a>
                     </li>
 
+                    <li>
+                        <a href="/Console/projects"><i class="fa fa-bar-chart-o"></i> Projects</a>
+                    </li>
+
+                    <li>
+                        <a href="/Console/gallerys" class="active-menu" ><i class="fa fa-table"></i> Gallerys </a>
+                    </li>
+                    <li>
+                        <a href="/Console/tags"><i class="fa fa-edit"></i> Tags </a>
+                    </li>
+			
                 </ul>
 
             </div>
@@ -314,7 +317,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-				Clusters Preview <small>{{max_cluster}} clusters total</small>
+				Clusters Preview 
+				 <small>{{metadata.projectName}} &nbsp; {{metadata.subtask_name}} &nbsp; {{max_cluster}} clusters total</small>
                         </h1>
                     </div>
                 </div>
@@ -343,7 +347,8 @@
 					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
 						{% for info in apkInfoTree %}
 						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.cluster_no}}">
-							<img src="/static{{BaseDir}}{{info.0.path}}" class="{{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
+							<!--<img src="/static{{BaseDir}}{{info.0.path}}" class="{{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">-->
+							<img src="{{picutrePath}}{{BaseDir}}{{info.0.path}}" class="{{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
 							<button type="button" class="btn btn-default center "  data-clipboard-target="#C{{info.0.widget}}"><p class="button_text">{{info.0.widget}}</p></button>
 							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.path}}</p>
 						</div>

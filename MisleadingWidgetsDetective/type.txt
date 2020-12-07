@@ -1,0 +1,143 @@
+android
+android.accessibilityservice
+android.accounts
+android.animation
+android.annotation
+android.app
+    android.app.admin
+    android.app.assist
+    android.app.backup
+    android.app.blob
+    android.app.job
+    android.app.role
+    android.app.slice
+    android.app.usage
+android.appwidget
+android.bluetooth
+    android.bluetooth.le
+android.companion
+android.content
+    android.content.pm
+    android.content.res
+    android.content.res.loader
+android.database
+    android.database.sqlite
+android.drm
+android.gesture
+android.graphics
+    android.graphics.drawable
+    android.graphics.drawable.shapes
+    android.graphics.fonts
+    android.graphics.pdf
+    android.graphics.text
+android.hardware
+    android.hardware.biometrics
+    android.hardware.camera2
+    android.hardware.camera2.params
+    android.hardware.display
+    android.hardware.fingerprint
+    android.hardware.input
+    android.hardware.usb
+icu
+    android.icu.lang
+    android.icu.math
+    android.icu.number
+    android.icu.text
+    android.icu.util
+android.inputmethodservice
+android.location
+android.media
+    android.media.audiofx
+    android.media.browse
+    android.media.effect
+    android.media.midi
+    android.media.projection
+    android.media.session
+    android.media.tv
+android.mtp
+android.net
+    android.net.http
+    android.net.nsd
+    android.net.rtp
+    android.net.sip
+    android.net.ssl
+    android.net.wifi
+    android.net.wifi.aware
+    android.net.wifi.hotspot2
+    android.net.wifi.hotspot2.omadm
+    android.net.wifi.hotspot2.pps
+    android.net.wifi.p2p
+    android.net.wifi.p2p.nsd
+    android.net.wifi.rtt
+android.nfc
+    android.nfc.cardemulation
+    android.nfc.tech
+android.opengl
+android.os
+    android.os.health
+    android.os.storage
+    android.os.strictmode
+    android.preference
+android.print
+    android.print.pdf
+android.printservice
+android.provider
+android.renderscript
+android.sax
+android.se.omapi
+android.security
+    android.security.identity
+    android.security.keystore
+    android.service.autofill
+    android.service.carrier
+    android.service.chooser
+    android.service.controls
+    android.service.controls.actions
+    android.service.controls.templates
+    android.service.dreams
+    android.service.media
+    android.service.notification
+    android.service.quickaccesswallet
+    android.service.quicksettings
+    android.service.restrictions
+    android.service.textservice
+    android.service.voice
+    android.service.vr
+    android.service.wallpaper
+android.speech
+    android.speech.tts
+android.system
+android.telecom
+android.telephony
+    android.telephony.cdma
+    android.telephony.data
+    android.telephony.emergency
+    android.telephony.euicc
+    android.telephony.gsm
+    android.telephony.ims
+    android.telephony.ims.feature
+    android.telephony.mbms
+android.test
+    android.test.mock
+    android.test.suitebuilder
+    android.test.suitebuilder.annotation
+android.text
+    android.text.format
+    android.text.method
+    android.text.style
+    android.text.util
+android.transition
+android.util
+    android.util.proto
+android.view
+    android.view.accessibility
+    android.view.animation
+    android.view.autofill
+    android.view.contentcapture
+    android.view.inputmethod
+    android.view.inspector
+    android.view.textclassifier
+    android.view.textservice
+android.webkit
+android.widget
+    android.widget.inline

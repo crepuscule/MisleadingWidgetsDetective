@@ -1,0 +1,195 @@
+<!--
+两种模式：
+1. 将簇交给用户，用户决定每个簇中哪些是outlier的
+2. 将算法异常检测后的结果交给用户评分
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Responsive Html5 Templates">
+    
+	
+    <title>Clusters Preview</title>
+	
+    <!-- Bootstrap Core CSS -->
+    <link href="{{staticPath}}/gallery-css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- Custom CSS -->
+	<!--<link href="{{staticPath}}/gallery-css/style.css" rel="stylesheet">-->
+	<!-- Animate.css -->
+	<link href="{{staticPath}}/gallery-css/animate.css" rel="stylesheet" media="all" type="text/css">
+	<!-- Lightbox.css -->
+	<link href="{{staticPath}}/gallery-css/lightbox.min.css" rel="stylesheet" media="all" type="text/css">
+	<!-- Custom Fonts -->
+    <link href="{{staticPath}}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style> 
+	.button_text{
+		font-size: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;/* 超出的文本隐藏 */
+
+	}
+	.outer{
+	    width: 224px;
+	    height: 258px;
+	    position: relative;
+	}
+	.center{
+	    width:200px;
+	    height: 34px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    position: absolute;
+	}
+	.totalhidden{
+		display:none;
+	}
+        .outlier{
+	   border:3px solid #C3464F
+	}
+    	input[type=range]:first-of-type {
+          width: 650px;
+        }
+        #one {
+                transform: rotate(90deg);
+                -ms-transform: rotate(90deg); /* IE 9 */ -moz-transform: rotate(90deg); /* Firefox */
+                -webkit-transform: rotate(90deg); /* Safari and Chrome */
+                -o-transform: rotate(90deg); /* Opera */
+        }
+    </style>
+
+</head>
+<body id="page-top" class="index-page" >
+<div class="wrap-body">
+	<!--////////////////////////////////////Container-->
+	<section id="page-content" class="index-page">
+	
+		<input type="range" value="-1" min="0" max="{{max_cluster}}" id="one" style="position: fixed;bottom:50%;right:-14%;" />
+		<div id="uno" style="position: fixed;bottom:10%;right:2.7%;">!&nbsp;</div>
+
+		<section class="box-content box-1" style="padding:10px 0;">
+			<div class="container" style="width:100%;height:1000px;">
+				<div class="heading wow" style="margin-bottom: 0px;">
+				<div class="row" >
+				  <div class="col-md-3 col-md-offset-5">
+				    <div class="input-group" >
+				      <input type="text" class="form-control" style="margin-top:15px;" placeholder="Search for..." id="searchFilter">
+				      <span class="input-group-btn" >
+					<button class="btn btn-default" style="margin-top:15px;margin-left:5px;" id='search' type="button">Find Clusters</button>
+				      </span>
+				    </div>
+				  </div>
+				</div>
+				
+				<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
+					{% for info in apkInfoTree %}
+					<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.cluster_no}}">
+						<img src="/static{{BaseDir}}{{info.0.path}}" id="widget_{{info.1.id}}" alt="" style="margin: auto;width: 224px;">
+						<button type="button" class="btn btn-default center " id="chooseOutlier_{{info.1.id}}">标为Outlier</button>
+						<p style="opacity:0;font-size:0px;" id="C{{info.1.cluster_no}}">{{BaseDir}}{{info.0.path}}</p>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+
+		</section>
+				
+	</section>
+	<!--<div id="page-top"><a href="#page-top" class="btn btn-toTop"><i class="fa fa-angle-double-up"></i></a></div>-->
+	<!-- ========== Scripts ========== -->
+	<script type="text/javascript" src="{{staticPath}}/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/SmoothScroll.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/wow.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/lightbox.min.js"></script>
+	<!-- Definity JS -->
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/main.js"></script>
+	<script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+	<script type="text/javascript">
+		console.log('reday')
+		function setCookie(name,value)
+		{
+		    var Days = 30;
+		    var exp = new Date();
+		    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+		    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+		}
+		//读取cookies
+		function getCookie(name){
+		    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		    if(arr=document.cookie.match(reg))
+			return unescape(arr[2]);
+		    else
+			return null;
+		}
+		$(document).ready(function () {
+			window.outlierSet = new Set()
+			function filter(filterValue){
+				$('.isotopeSelect').addClass('totalhidden')
+				console.log('filtering',filterValue)
+				$(filterValue).removeClass('totalhidden')
+				console.log(filterValue,'done')
+			}
+			$('#one').bind('input ',function(){
+				console.log('input!')
+				$('#uno').html($(this).val())
+				filterValue = '.C' + $(this).val()
+				filter(filterValue)
+			})
+			$('#search').click(function () {
+				console.log('click!')
+				var filterValue = $('#searchFilter').val();
+				if(filterValue == "*"){
+					filterValue = '.isotopeSelect'
+				}else{
+					filterValue = '.C' + $('#searchFilter').val();
+				}
+				filter(filterValue)
+			});
+			$('.center').click(function(){
+				buttonId = $(this).attr('id')
+				id = buttonId.split('_')[1]
+				widgetId = '#widget_'+id
+				if( $(widgetId).hasClass('outlier') ){
+					window.outlierSet.delete(id)
+					$(widgetId).removeClass('outlier')
+					$(this).addClass('btn-default').removeClass('btn-success')
+					$(this).html('标记为Outlier')
+				}else{
+					window.outlierSet.add(id)
+					$(widgetId).addClass('outlier')
+					$(this).removeClass('btn-default').addClass('btn-success')
+					$(this).html('取消标记')
+				}
+			})
+		});
+		function clock(){
+			console.log('setting outlierSet to cookie')
+			setCookie('outlierSet',window.outlierSet)
+			console.log(JSON.stringify(getCookie('outlierSet')))
+		}
+		//setInterval("clock()",120000);
+		setInterval("clock()",5000);
+	</script>
+	<script type="text/javascript">
+		var clipboard = new ClipboardJS('.btn');
+		clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		});
+		clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		});
+	</script>
+	<script src="{{staticPath}}/js/html5slider.js"></script>
+</div>
+</body>
+</html>

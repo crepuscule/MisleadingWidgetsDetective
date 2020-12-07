@@ -1,0 +1,51 @@
+function setCookie(name,value)
+{
+    var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+//读取cookies
+function getCookie(name){
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+function setCookie(name,value,days){
+ 
+    // document.cookie="username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
+    var expires='';
+    if(days){
+        var d = new Date();
+        // d.getTime() 起始时间
+        d.setTime(d.getTime()+days*24*60*60*1000);
+ 
+        var expires ='; expires='+d.toGMTString();
+    }
+    document.cookie=name+"="+value+expires+"; path=/";
+ 
+}
+
+function getCookie(name){
+    // cookie1=value; cookie2=value;
+    var name= name+'=';
+    var ca = document.cookie.split(';');
+    for(var i=0;i<ca.length;i++)
+    {
+        // ca[i].charAt(0)
+        if(!ca[i].charAt(0))
+        {
+            ca[i] = ca[i].substring(1,ca[i].length);
+        }
+        if(ca[i].charAt(0).indexOf(name)!=-1){
+            var c=ca[i];
+            return c.substring(name.length,c.length);
+        }
+    }
+    return null;
+ 
+}

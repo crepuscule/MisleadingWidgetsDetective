@@ -1,3 +1,8 @@
+<!--
+两种模式：
+1. 将簇交给用户，用户决定每个簇中哪些是outlier的
+2. 将算法异常检测后的结果交给用户评分
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,11 +54,28 @@
         }
         #one {
                 transform: rotate(90deg);
-                -ms-transform: rotate(90deg); /* IE 9 */
-                -moz-transform: rotate(90deg); /* Firefox */
+                -ms-transform: rotate(90deg); /* IE 9 */ -moz-transform: rotate(90deg); /* Firefox */
                 -webkit-transform: rotate(90deg); /* Safari and Chrome */
                 -o-transform: rotate(90deg); /* Opera */
         }
+	.fafont {
+		font-size:25px;
+	}
+	.leftflow{
+		position: fixed;
+		bottom:3%;
+		left:-5%;
+		z-index:-1
+	}
+	.rightflow{
+		position: fixed;
+		bottom:3%;
+		right:-5%;
+		z-index:-1
+	}
+	.isotopeTotal{
+		z-index:-2
+	}
     </style>
 
 </head>
@@ -62,11 +84,12 @@
 	<!--////////////////////////////////////Container-->
 	<section id="page-content" class="index-page">
 	
-		<input type="range" value="-1" min="0" max="{{max_cluster}}" id="one" style="position: fixed;bottom:50%;right:-15%;" />
-		<div id="uno" style="position: fixed;bottom:6%;right:4%;">!&nbsp;</div>
+		<input type="range" value="-1" min="0" max="{{max_cluster}}" id="one" style="position: fixed;bottom:50%;right:-14%;" />
+		<div id="uno" style="position: fixed;bottom:10%;right:2.7%;">!&nbsp;</div>
 
 		<section class="box-content box-1" style="padding:10px 0;">
 			<div class="container" style="width:100%;height:1000px;">
+				<!--
 				<div class="heading wow" style="margin-bottom: 0px;">
 				<div class="row" >
 				  <div class="col-md-3 col-md-offset-5">
@@ -78,12 +101,18 @@
 				    </div>
 				  </div>
 				</div>
-				
+				-->
+				  <div class="col-md-3 col-md-offset-1 leftflow">
+					  <p class="fafont" id="previous"><i class="fa fa-arrow-left "></i>&nbsp;Previous Cluster</p>
+				  </div>
+				  <div class="col-md-3 col-md-offset-4 rightflow">
+					  <p class="fafont" id="next">Previous Cluster&nbsp;<i class="fa fa-arrow-right "></i></p>
+				  </div>
 				<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
 					{% for info in apkInfoTree %}
 					<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.cluster_no}}">
-						<img src="/static{{BaseDir}}{{info.0.path}}" class="{{property.isoutlier}}" alt="" style="margin: auto;width: 224px;">
-						<button type="button" class="btn btn-default center "  data-clipboard-target="#C{{info.1.cluster_no}}"><p class="button_text">{{info.0.widget}}</p></button>
+						<img src="/static{{BaseDir}}{{info.0.path}}" id="widget_{{info.1.id}}" alt="" style="margin: auto;width: 224px;">
+						<button type="button" class="btn btn-default center " id="chooseOutlier_{{info.1.id}}">标为Outlier</button>
 						<p style="opacity:0;font-size:0px;" id="C{{info.1.cluster_no}}">{{BaseDir}}{{info.0.path}}</p>
 					</div>
 					{% endfor %}
@@ -108,7 +137,23 @@
 	<script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
 	<script type="text/javascript">
 		console.log('reday')
+		function setCookie(name,value)
+		{
+		    var Days = 30;
+		    var exp = new Date();
+		    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+		    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+		}
+		//读取cookies
+		function getCookie(name){
+		    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+			if(arr=document.cookie.match(reg)){
+				return unescape(arr[2]);}
+			else{	return null;}
+		}
 		$(document).ready(function () {
+			window.outlierSet = new Set()
+			window.curCluster = 0
 			function filter(filterValue){
 				$('.isotopeSelect').addClass('totalhidden')
 				console.log('filtering',filterValue)
@@ -131,7 +176,41 @@
 				}
 				filter(filterValue)
 			});
+			$('.center').click(function(){
+				buttonId = $(this).attr('id')
+				id = buttonId.split('_')[1]
+				widgetId = '#widget_'+id
+				if( $(widgetId).hasClass('outlier') ){
+					window.outlierSet.delete(id)
+					$(widgetId).removeClass('outlier')
+					$(this).addClass('btn-default').removeClass('btn-success')
+					$(this).html('标记为Outlier')
+				}else{
+					window.outlierSet.add(id)
+					$(widgetId).addClass('outlier')
+					$(this).removeClass('btn-default').addClass('btn-success')
+					$(this).html('取消标记')
+				}
+			})
+			$('#previous').click(function(){
+				console.log('yyy')
+				if(window.curCluster > 1)
+					filter(window.curCluster-1)
+			});
+			$('#next').click(function(){
+				console.log('yyy')
+				if(window.curCluster < {{max_cluster}})
+					filter(window.curCluster+1)
+			});
+
 		});
+		function clock(){
+			console.log('setting outlierSet to cookie')
+			setCookie('outlierSet',window.outlierSet)
+			console.log(JSON.stringify(getCookie('outlierSet')))
+		}
+		//setInterval("clock()",120000);
+		//setInterval("clock()",5000);
 	</script>
 	<script type="text/javascript">
 		var clipboard = new ClipboardJS('.btn');

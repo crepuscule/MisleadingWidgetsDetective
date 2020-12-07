@@ -4,18 +4,65 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
     <!-- Bootstrap Styles-->
-    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+    <link href="{{staticPath}}/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
+    <!--<link href="{{staticPath}}/css/font-awesome.css" rel="stylesheet" />-->
     <link rel="stylesheet" href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css">
-    <!-- Morris Chart Styles-->
-    <link href="../../static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link href="../../static/css/custom-styles.css" rel="stylesheet" />
+    <link href="{{staticPath}}/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> 
-    <link href="{{staticPath}}/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <title>Outliers Preview</title>
+	
+	<link href="{{staticPath}}/gallery-css/animate.css" rel="stylesheet" media="all" type="text/css">
+    <link href="{{staticPath}}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style> 
+	.button_text{
+		font-size: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;/* 超出的文本隐藏 */
+		color: black;
+		padding-top:0px;
+		z-index:-1;
+	}
+	.outer{
+	    width: 224px;
+	    height: 258px;
+	    position: relative;
+	    margin-right: 30px;
+	    margin-bottom: 30px;
+	}
+	.center{
+	    width:200px;
+	    height: 34px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    position: absolute;
+	    border-radius: 0px;
+	    z-index:1;
+	}
+	.totalhidden{
+		display:none;
+	}
+        .outlier{
+	   border:2px solid #C3464F;
+	}
+        .hightlight{
+	   border:2px solid #FFCC00;
+	}
+    	input[type=range]:first-of-type {
+          width: 650px;
+        }
+        #one {
+                transform: rotate(90deg);
+                -ms-transform: rotate(90deg); /* IE 9 */
+                -moz-transform: rotate(90deg); /* Firefox */
+                -webkit-transform: rotate(90deg); /* Safari and Chrome */
+                -o-transform: rotate(90deg); /* Opera */
+        }
+    </style>
+
      
 </head>
 
@@ -29,7 +76,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" id="changeDB"><i class="fa fa-search"></i> <strong>Misleading</strong></a>
+		<a class="navbar-brand" href="index.html"> <i class="fa fa-search"></i> <strong>Misleading</strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -245,31 +292,28 @@
         <nav class="navbar-default navbar-side" role="navigation">
 		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
             <div class="sidebar-collapse">
-
                 <ul class="nav" id="main-menu">
-                    <li>
-                        <a href="/Console/home" class="active-menu"><i class="fa fa-home"></i> Home </a>
-                    </li>
 
+                    <li>
+                        <a href="/Console/home"><i class="fa fa-dashboard"></i> Home </a>
+                    </li>
                     <li>
                         <a href="/Console/console"><i class="fa fa-dashboard"></i> Console </a>
                     </li>
 
                     <li>
-                        <a href="/Console/users" ><i class="fa fa-user"></i> Users </a>
+                        <a href="/Console/projects"><i class="fa fa-bar-chart-o"></i> Projects</a>
                     </li>
 
                     <li>
-                        <a href="/Console/projects" ><i class="fa fa-bar-chart-o"></i> Projects</a>
-                    </li>
-
-                    <li>
-                        <a href="/Console/gallerys" ><i class="fa fa-picture-o"></i> Gallerys </a>
+                        <a href="/Console/gallerys" class="active-menu" ><i class="fa fa-table"></i> Gallerys </a>
                     </li>
                     <li>
                         <a href="/Console/tags"><i class="fa fa-edit"></i> Tags </a>
-                    </li>
-                </ul>		    
+                    </li>			
+
+                </ul>
+
             </div>
         </nav>
         <!-- /. NAV SIDE  -->
@@ -280,252 +324,48 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Dashboard <small>Summary of your App</small>
+                                Outliers Preview 
+      				<small>{{metadata.projectName}} &nbsp; {{metadata.subtask_name}} &nbsp; {{max_cluster}} clusters total</small>
                         </h1>
-						<ol class="breadcrumb">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
-</ol>
+
                     </div>
                 </div>
 				
 				
-                <!-- /. ROW  -->
-                <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>
+                <div class="row panel"  style="padding-bottom:50px;">
+		<section id="page-content" class="index-page ">
+		
+			<input type="range" value="-1" min="0" max="{{max_cluster}}" id="one" style="position: fixed;bottom:40%;right:-13%;" />
+			<div id="uno" style="position: fixed;bottom:3%;right:3.7%;">*&nbsp;</div>
 
-                <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green green">
-                            <div class="panel-left pull-left green">
-                                <i class="fa fa-eye fa-5x"></i>
-                                
-                            </div>
-                            <div class="panel-right">
-								<h3>8,457</h3>
-                               <strong> Daily Visits</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-blue">
-                              <div class="panel-left pull-left blue">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
-								</div>
-                                
-                            <div class="panel-right">
-							<h3>52,160 </h3>
-                               <strong> Sales</strong>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red">
-                            <div class="panel-left pull-left red">
-                                <i class="fa fa fa-comments fa-5x"></i>
-                               
-                            </div>
-                            <div class="panel-right">
-							 <h3>15,823 </h3>
-                               <strong> Comments </strong>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-brown">
-                            <div class="panel-left pull-left brown">
-                                <i class="fa fa-users fa-5x"></i>
-                                
-                            </div>
-                            <div class="panel-right">
-							<h3>36,752 </h3>
-                             <strong>No. of Visits</strong>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				
-				<div class="row">
-				<div class="col-md-5">
-						<div class="panel panel-default">
-						<div class="panel-heading">
-							Area Chart
-						</div>
-						<div class="panel-body">
-							<div id="morris-area-chart"></div>
-						</div>
-					</div>   
-					</div>		
-					
-						<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							Line Chart
-						</div>
-						<div class="panel-body">
-							<div id="morris-line-chart"></div>
-						</div>
-					</div>  
+			<section class="box-content box-1">
+				<div class="container" style="width:100%;height:1000px;">
+					<div class="heading wow" style="margin-bottom: 0px;">
+					<div class="row" style="margin-bottom: 30px;">
+					  <div class="col-md-3 col-md-offset-5">
+					    <div class="input-group" >
+					      <input type="text" class="form-control" style="margin-top:15px;" placeholder="Search for..." id="searchFilter">
+					      <span class="input-group-btn" >
+						<button class="btn btn-default" style="margin-top:15px;margin-left:5px;border-radius:0px;" id='search' type="button">Find Clusters</button>
+					      </span>
+					    </div>
+					  </div>
 					</div>
 					
-				</div> 
-			 
-				
-			
-		<div class="row">
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Customers</h4>
-						<div class="easypiechart" id="easypiechart-blue" data-percent="82" ><span class="percent">82%</span>
+					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
+						{% for info in apkInfoTree %}
+						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.cluster_no}}">
+							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
+							<button type="button" class="btn btn-default center "  data-clipboard-target="#C{{info.0.widget}}"><p class="button_text">{{info.0.widget}}</p></button>
+							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.path}}</p>
 						</div>
+						{% endfor %}
 					</div>
 				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Sales</h4>
-						<div class="easypiechart" id="easypiechart-orange" data-percent="55" ><span class="percent">55%</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>Profits</h4>
-						<div class="easypiechart" id="easypiechart-teal" data-percent="84" ><span class="percent">84%</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<h4>No. of Visits</h4>
-						<div class="easypiechart" id="easypiechart-red" data-percent="46" ><span class="percent">46%</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/.row-->
-			
-				
-                <div class="row">
-                    <div class="col-md-9 col-sm-12 col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Bar Chart Example
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-bar-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Donut Chart Example
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-donut-chart"></div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-				<div class="row">
-				<div class="col-md-12">
-				
-					</div>		
-				</div> 	
-                <!-- /. ROW  -->
-
-	   
-				
-				
-				
-                <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12" >
-                        <div class="panel panel-default" style="height:396px;">
-                            <div class="panel-heading">
-                                Tasks Panel
-                            </div>
-                            <div class="panel-body" style="margin-top:20px;">
-                                <div class="list-group">
-
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">7 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">16 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">36 minutes ago</span>
-                                        <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1.23 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-8 col-sm-12 col-xs-12" >
-
-			<div class="panel panel-default" style="height:396px;">
-                            <div class="panel-heading">
-                                SubTask Summary
-                            </div> 
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Project Name</th>
-                                                <th>SubTask Name</th>
-                                                <th>Update Time</th>
-                                                <th>Link</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-					{% for subtask in subtaskDictList %}
-                                            <tr>
-						<td>{{subtask.no}}</td>
-						<td>{{subtask.projectName}}</td>
-						<td>{{subtask.subtaskName}}</td>
-						<td>{{subtask.updateTime}}</td>
-						<td><a href="{{subtask.link}}">Click</a></td>
-                                            </tr>
-					{% endfor %}
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+			</section>
+					
+		</section>
                 </div>
                 <!-- /. ROW  -->
 			
@@ -540,57 +380,63 @@
         <!-- /. PAGE WRAPPER  -->
     </div>
     <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
-    <script src="../../static/js/jquery-1.10.2.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="../../static/js/bootstrap.min.js"></script>
-	 
     <!-- Metis Menu Js -->
-    <script src="../../static/js/jquery.metisMenu.js"></script>
-    <!-- Morris Chart Js -->
-    <script src="../../static/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="../../static/js/morris/morris.js"></script>
-	
-	
-	<script src="../../static/js/easypiechart.js"></script>
-	<script src="../../static/js/easypiechart-data.js"></script>
-	
-	 <script src="../../static/js/Lightweight-Chart/jquery.chart.js"></script>
-	
+	<script type="text/javascript" src="{{staticPath}}/js/jquery-1.10.2.js"></script>
+    <script src="{{staticPath}}/js/jquery.metisMenu.js"></script>
+
+    <script src="{{staticPath}}/js/bootstrap.min.js"></script>
     <!-- Custom Js -->
-    <script src="../../static/js/custom-scripts.js"></script>
- 
-    <script src="{{staticPath}}/js/dataTables/jquery.dataTables.js"></script>
-    <script src="{{staticPath}}/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable({
-                    "pageLength": 5,
-                    "lengthMenu": [ 5]
-                    });
 
-           $('#changeDB').bind('click',function(){
-                    console.log('input submit!')
-                    //首先使用ajax进行数据通信
-                    $.ajax({
-                    type: 'GET',
-                    url: '/Console/changeDB',
-                    data: {},
-                    dataType: 'json',
-                    contentType: 'application/json; charset=UTF-8',
-                    success: function(data) {
-                         alert(data['msg'])
-                    },
-                    error: function(xhr, type) {
-                    }
-                    });
-
-            })
-				    
-            });
-    </script>
-
+	<!--<div id="page-top"><a href="#page-top" class="btn btn-toTop"><i class="fa fa-angle-double-up"></i></a></div>-->
+	<!-- ========== Scripts ========== -->
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
+	<!-- Definity JS -->
+	<script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+	<script type="text/javascript">
+		console.log('reday')
+		$(document).ready(function () {
+			function filter(filterValue){
+				$('.isotopeSelect').addClass('totalhidden')
+				console.log('filtering',filterValue)
+				$(filterValue).removeClass('totalhidden')
+				console.log(filterValue,'done')
+			}
+			// 如果hightlight，选hightlight所在簇
+			//hightlightCluster = ({{hightlightCluster}}).toString()
+			//if (hightlightCluster != '')filter('.C'+hightlightCluster)
+			$('#one').bind('input ',function(){
+				console.log('input!')
+				$('#uno').html($(this).val())
+				filterValue = '.C' + $(this).val()
+				filter(filterValue)
+			})
+			$('#search').click(function () {
+				console.log('click!')
+				var filterValue = $('#searchFilter').val();
+				if(filterValue == "*"){
+					filterValue = '.isotopeSelect'
+				}else{
+					filterValue = '.C' + $('#searchFilter').val();
+				}
+				filter(filterValue)
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		var clipboard = new ClipboardJS('.btn');
+		clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		});
+		clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		});
+	</script>
+	<script src="{{staticPath}}/js/html5slider.js"></script>
 </body>
 
 </html>
