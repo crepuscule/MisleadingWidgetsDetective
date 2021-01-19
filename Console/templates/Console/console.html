@@ -250,6 +250,9 @@
                     <li>
                         <a href="/Console/home"><i class="fa fa-home"></i> Home </a>
                     </li>
+                   <li>
+                        <a href="/Console/apkforestlist"><i class="fa fa-dashboard"></i> APKForest </a>
+                    </li>
 
                     <li>
                         <a href="/Console/console" class="active-menu"><i class="fa fa-dashboard"></i> Console </a>
@@ -351,38 +354,23 @@
                     <div class="col-md-4 col-sm-12 col-xs-12" >
                         <div class="panel panel-default" style="height:396px;">
                             <div class="panel-heading">
-                                Reference Commands
+                                Choose DataBase 
                             </div>
                             <div class="panel-body" style="margin-top:20px;">
                                 <div class="list-group">
-
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">7 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">16 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">36 minutes ago</span>
-                                        <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1.23 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
+                                {% for db_name in db_list %}
+                                    {% if forloop.counter <= 6 %}
+                                        <a href="/Console/changedb/{{db_name}}" class="list-group-item">
+                                        {% if current_db == db_name %}
+                                            <span class="badge">Current DataBase</span>
+                                        {% endif %}
+                                            <i class="fa fa-fw fa-comment"></i>{{db_name}} 
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
                                 </div>
                                 <div class="text-right">
-                                    <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="#"  data-toggle="modal" data-target="#myModal">All DataBases<i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -603,6 +591,49 @@
 	    setInterval("clock()",10000);
 
     </script>
+<script>
+     $(function () { $('#myModal').modal('hide')});
+</script>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-lg" style="width:80%">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                     {% if language == 'zh' %}
+                    选择所有数据库
+                     {% else %}
+                    Choose All DataBases
+                     {% endif %}
+                </h4>
+            </div>
+            <div class="modal-body">
+                    <div class="list-group">
+                       {% for db_name in db_list %}
+                               <a href="/Console/changedb/{{db_name}}" class="list-group-item">
+                               {% if current_db == db_name %}
+                                   <span class="badge">Current DataBase</span>
+                               {% endif %}
+                                   <i class="fa fa-fw fa-comment"></i>{{db_name}} 
+                               </a>
+                       {% endfor %}
+                   </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                     {% if language == 'zh' %}
+                    关闭
+                     {% else %}
+                    Close
+                     {% endif %}
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 

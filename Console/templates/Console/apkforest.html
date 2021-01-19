@@ -100,6 +100,12 @@
     .isotopeSelect{
         margin-bottom:60px;
     }
+        .controlButton{
+        font-size: 20px;
+        position: fixed;
+        bottom: 1%;
+        left: 7%;
+        }
     </style>
 
      
@@ -109,9 +115,9 @@
                 <div class="">
                     <div class="col-md-12">
                         <h1 class="" style="text-align:center;">
-				Outliers Preview 
+				DataSet Preview 
                         </h1>
-      				<h1 style="text-align:center;margin-bottom:30px;"><small>{{current_db}}: {{metadata.project_name}}.{{metadata.subtask_name}} &nbsp; {{max_cluster}} clusters total</small></h1>
+      				<h1 style="text-align:center;margin-bottom:30px;"><small>{{current_db}}:{{current_apkforest}}</small></h1>
 
 			<hr/>
                     </div>
@@ -140,38 +146,23 @@
 					</div>
 					
 					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
-						{% for info in apkInfoTree %}
-                        <!--{% for key,value in  cluster_show_dict.items %}
-                            {% if key == info.1.cluster_no and value == True %}-->
-						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.new_cluster_no}} ">
-                            <p style="text-align:center;margin-top:-5px;">{{info.1.outlier_score}}RC:{{info.1.cluster_no}}</p>
-							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
-							<button type="button" class="btn btn-default center "  data-clipboard-target="#C{{info.0.widget}}" data-toggle="tooltip" data-placement="bottom" title="Click to Copy:{{info.0.path}}"><p class="button_text">{{info.0.app}}</p></button>
-							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.path}}</p>
-
-							<div class="apiType hidden" >
-								<ul >
-								{% for typeItem in info.0.api_type %}
-								<li>{{typeItem}}</li>
-								{% endfor %}
-								<ul>
-							</div>
-						<!--<div class="apiContent hidden" >
-							<ul type='square'>
-							{% for apiItem in info.0.api %}
-							<li>{{apiItem}}</li>
-							{% endfor %}
-							<ul>
-						</div>-->
+						{% for info in rawapkTree %}
+						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.image_cluster_no}} ">
+                <p style="text-align:center;margin-top:-5px;">{{info.app}}</p>
+							<img src="{{picturePath}}{{BaseDir}}{{info.path}}"  alt="" style="margin: auto;width: 224px;">
+							<button type="button" class="btn btn-success center" id="{{info.id}}" value='1'><p class="button_text">Delete</p></button>
+							<p style="opacity:0;font-size:0px;" id="C{{info.widget}}">{{BaseDir}}{{info.path}}</p>
 						</div>
-						<!--{% endif %}
-						{% endfor %}-->
 						{% endfor %}
 					</div>
 				</div>
 
 			</section>
-					
+    <p>
+      <button type="button" class="btn btn-info btn-lg col-md-2 controlButton" id='clear'>本簇全部标为删除</button>
+      <button type="button" class="btn btn-warning btn-lg col-md-2 col-md-offset-4 controlButton" id='submit'>提交此次标注</button>
+      <button type="button" class="btn btn-default btn-lg col-md-2 col-md-offset-8 controlButton" id='next'>下一页</button>
+    </p>					
 	<script type="text/javascript" src="{{staticPath}}/js/jquery-1.10.2.js"></script>
     <script src="{{staticPath}}/js/jquery.metisMenu.js"></script>
 
@@ -188,6 +179,7 @@
 		console.log('reday')
 		window.apiShowStatus = 0
 		window.averAPIs = {{averAPIs}}
+        window.widgets = new Array()
 		$(document).ready(function () {
 			function filter(filterValue){
 				$('.isotopeSelect').addClass('totalhidden')
@@ -195,9 +187,14 @@
 				$(filterValue).removeClass('totalhidden')
 				console.log(filterValue,'done')
 			}
-			// 如果hightlight，选hightlight所在簇
-			hightlightCluster = ({{hightlightCluster}}).toString()
-			if (hightlightCluster != '')filter('.C'+hightlightCluster)
+            $('#next').click(function() {
+                console.log('next page')        
+                curpage = parseInt($('#one').val()) + 1
+                $('#one').val(curpage)
+                $('#uno').html(curpage)
+                filter('.C' + curpage)
+    
+            })
 			$('#one').bind('input ',function(){
 				console.log('input!')
 				$('#uno').html($(this).val())
@@ -240,7 +237,55 @@
 					window.apiShowStatus = 0
 				}else{}
 			});
-		});
+
+    $('.center').click(function(){
+        if( $(this).hasClass('btn-success') ){
+            $(this).removeClass('btn-success').addClass('btn-danger')
+            $(this).attr('value',2)
+            $(this).html('Deleted')
+        }else{
+            $(this).removeClass('btn-danger').addClass('btn-success')
+            $(this).attr('value',1)
+            $(this).html('Delete')
+        }
+    })
+
+    $('#clear').click(function(){
+        $('.center').each(function(){
+            if ( ! $(this).parent().hasClass('totalhidden') ){
+                $(this).removeClass('btn-success').addClass('btn-danger')
+                $(this).attr('value',2)
+                $(this).html('Deleted')
+            }
+        })
+    })
+
+    $('#submit').click(function(){
+        $('.center').each(function(){
+            //console.log([$(this).attr('id') ,$(this).attr('value')])
+            //# 可以默认为1，提交为2.也可以取出时有为2，默认为1
+            if( $(this).attr('value') == 2)
+                window.widgets += $(this).attr('id')+';'
+            //window.widget_ids.push($(this).attr('id'))
+            //window.widget_states.push($(this).attr('value'))
+        })
+        // [(id,1/0)]
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+        console.log('windows.videos值为\n',window.widgets)
+        $.post(
+            '/Console/apkForestSubmit',
+            {widgets:window.widgets,apkforestName:"{{current_apkforest}}"},
+            function(result){
+                alert('提交成功,自动切换到列表页')
+                window.location.href="/Console/apkforestlist"
+            }   
+
+        );
+    })
+
+    });
 	</script>
 	<script type="text/javascript">
                 var clipboard = new ClipboardJS('.btn');

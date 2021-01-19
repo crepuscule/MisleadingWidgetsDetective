@@ -12,6 +12,7 @@ urlpatterns = [
     path('checkRun',views.checkRun), 
     # Console/console.html
     path('console',views.console), 
+    path('changedb/<str:db_name>',views.chooseDataBase), 
     # Console/submitRun.html
     path('submitRun',views.submitRun), 
     # Console/projects.html
@@ -35,6 +36,9 @@ urlpatterns = [
     path('evaluateHome',views.evaluateHome),
     path('evaluate/<str:projectName>/<str:subtask_name>',views.evaluate), 
     path('evaluateSubmit',views.evaluateSubmit), 
-    path('changeDB',views.changeDB)
+    path('changeDB',views.changeDB),
+    path('apkforestlist',views.apkforestlist),
+    path('apkforest/<str:apkforestName>',views.apkforest),
+    path('apkForestSubmit',views.apkforestsubmit)
 ]
 

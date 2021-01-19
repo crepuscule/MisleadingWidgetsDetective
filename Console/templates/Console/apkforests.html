@@ -8,7 +8,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tags</title>
+    <title></title>
 	<!-- Bootstrap Styles-->
     <link href="{{staticPath}}/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -253,13 +253,12 @@
         <nav class="navbar-default navbar-side" role="navigation">
 		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
             <div class="sidebar-collapse">
-
                 <ul class="nav" id="main-menu">
                     <li>
                         <a href="/Console/home"><i class="fa fa-home"></i> Home </a>
                     </li>
                    <li>
-                        <a href="/Console/apkforestlist"><i class="fa fa-dashboard"></i> APKForest </a>
+                        <a href="/Console/apkforestlist" class="active-menu"><i class="fa fa-dashboard"></i> APKForest </a>
                     </li>
 
                     <li>
@@ -278,9 +277,10 @@
                         <a href="/Console/gallerys" ><i class="fa fa-picture-o"></i> Gallerys </a>
                     </li>
                     <li>
-                        <a href="/Console/tags" class="active-menu"><i class="fa fa-edit"></i> Tags </a>
+                        <a href="/Console/tags"><i class="fa fa-edit"></i> Tags </a>
                     </li>
-                </ul>		    
+                </ul>
+
             </div>
 
         </nav>
@@ -291,9 +291,9 @@
                         <div class="col-md-12">
                             <h1 class="page-header">
 			     {% if language == 'zh' %}
-				     可标注项目列表
+				     APK森林列表
 			     {% else %}
-				     Tagging List
+				     ApkForest List
 			     {% endif %}
                             </h1>
                         </div>
@@ -305,28 +305,22 @@
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                SubTask Summary
+                                ApkForest Summary
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Project Name</th>
-                                                <th>SubTask Name</th>
-                                                <th>Update Time</th>
-                                                <th>Tagging Link</th>
+                                                <th>ApkForest Name</th>
+                                                <th>Preprocess</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-					{% for subtask in subtaskDictList %}
+					{% for apkForest in apkForestList %}
                                             <tr>
-						<td>{{subtask.no}}</td>
-						<td>{{subtask.projectName}}</td>
-						<td>{{subtask.subtaskName}}</td>
-						<td>{{subtask.updateTime}}</td>
-						<td><a href="{{subtask.tagging_link}}">Click</a></td>
+						<td>{{apkForest.0}}</td>
+						<td><a href="{{apkForest.1}}">Click</a></td>
                                             </tr>
 					{% endfor %}
 
