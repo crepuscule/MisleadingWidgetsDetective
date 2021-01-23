@@ -23,10 +23,14 @@ import math
 DBIP = '127.0.0.1'
 DBPORT = 27017
 #DBNAME = 'db_googleplay_13k'
-DBNAME = 'db_f_droid_9h'
-HOST_NAME = 'http://219.216.64.42:8000/'
+#DBNAME = 'db_f_droid_9h'
+DBNAME = 'db_big'
+RAWAPKFOREST = ''
+#HOST_NAME = 'http://219.216.64.42:8000/'
+HOST_NAME = 'http://172.16.12.133:8000/'
 STATIC_PATH = HOST_NAME + 'static'
-PICTURE_PATH = 'http://219.216.64.42'
+#PICTURE_PATH = 'http://219.216.64.42'
+PICTURE_PATH = 'http://172.16.12.133'
 CONFIG_PATHS = '/home/dl/users/wangruifeng/05MisleadingWidgets/androidwidgetclustering'
 
 # 重要业务逻辑处理文件
@@ -148,7 +152,11 @@ def chooseDataBase(request,db_name=''):
         DBNAME = db_name 
     return console(request)
     
-    
+def chooseRawApkForest(request,apkforest=''):
+    global RAWAPKFOREST
+    if apkforest != '':
+        RAWAPKFOREST = apkforest 
+    return console(request)
 
 def homepage(request):
     #根据需要选择HttpRespone或者HttpResponse
@@ -205,6 +213,7 @@ def loadDataBase(configPaths):
     #return configuration.initConfig(1)
     dataBaseProcessor = DataBaseProcessor.DataBaseProcessor()
     dataBaseProcessor.DBNAME = DBNAME
+    dataBaseProcessor.rawApkForestName = RAWAPKFOREST
     return dataBaseProcessor
 
 def console(request):
@@ -248,7 +257,23 @@ OD run
     db_list.remove('local')
     db_list.remove('admin')
     print(db_list)
-    context = {'default_cmd':default_cmd,'staticPath':STATIC_PATH,'db_list':db_list,'current_db':DBNAME}
+
+    # apkforestlist
+    global DBNAME
+    dataBaseProcessor = loadDataBase(CONFIG_PATHS)
+    client = dataBaseProcessor.getConnection()
+    collist = client.collection_names()
+    apkforestlist = []
+    for line in collist:
+        if '.' not in line and '_' not in line:
+            # 作为列表之一
+            apkforestitem = dict()
+            apkforestitem['Name'] = line
+            apkforestitem['tagLink'] = '/Console/apkforest/%s'  % line
+            apkforestitem['chooseLink'] = '/Console/changeapkforest/%s' % line
+            apkforestlist.append(apkforestitem)
+
+    context = {'default_cmd':default_cmd,'apkForestList':apkforestlist,'staticPath':STATIC_PATH,'db_list':db_list,'current_db':DBNAME,'current_apkforest':RAWAPKFOREST}
     return render(request, 'Console/console.html', context)
 
 def allDataBase(request):
@@ -455,7 +480,7 @@ def isCanShow(apps_dict):
     #{'app1':2,'app2':3,'app3'1}
     c = list(apps_dict.values())
     sum_c = sum(c)
-    if sum_c < 5:
+    if sum_c < 3:
         return False
     c = [i/sum_c for i in c]
     if len(c) < 0:
@@ -467,7 +492,8 @@ def isCanShow(apps_dict):
         return False
     return True
 
-def album(request, projectName='MW_lle', subtask_name='spm_lle150_optics3', galleryId='',hightlightClusterId=''):
+def album(request, projectName='MW_lle', subtask_name='spm_lle150_optics3', galleryId='',hightlightClusterId='',cluster_no=0):
+    global DBNAME
     if hightlightClusterId == 'none':
         hightlightCluster = hightlightId = ''
     else:
@@ -515,15 +541,22 @@ def album(request, projectName='MW_lle', subtask_name='spm_lle150_optics3', gall
             print('Wrong!!')
         apkTree[i]['isOutlier'] = ''
         #if float(apkTree[i]['outlier_score']) <= -0.55:
-        if float(apkTree[i]['outlier_score']) <= 0:
+        if float(apkTree[i]['outlier_score']) <= 1:
         #if float(apkTree[i]['outlier_score']) > 3:
             apkTree[i]['isOutlier'] = 'outlier'
         rawapkTree[i]['widget'] = ''.join(rawapkTree[i]['widget'].split(', '))
         apkTree[i]['id'] = str(apkTree[i]['raw_id'])
+        # 一些用于报表的属性
+        if 'f_droid' in DBNAME:
+            apkTree[i]['appwebsite'] = 'https://f-droid.org/en/packages/'+rawapkTree[i]['app'].replace('.apk','')
+        else:
+            apkTree[i]['appwebsite'] = 'https://play.google.com/store/apps/details?id='+rawapkTree[i]['app'].replace('.apk','')
+
         if apkTree[i]['id'] == hightlightId and apkTree[i]['cluster_no'] == hightlightCluster:
             apkTree[i]['hightlight'] = 'hightlight'
         if galleryId == 'evaluate':
             rawapkTree[i]['api_type'] = rawapkTree[i]['method_api']#resoluteAPI(rawapkTree[i]['api'],stanard_android_api,'simple')#
+            rawapkTree[i]['api_string'] = '\n'.join(rawapkTree[i]['method_api'])
             apkInfoTree.append((rawapkTree[i], apkTree[i]))
 
     if galleryId == 'evaluate':
@@ -543,8 +576,7 @@ def album(request, projectName='MW_lle', subtask_name='spm_lle150_optics3', gall
         apkInfoTree_swap = apkInfoTree
         new_cluster_no_count = 0
 
-    global DBNAME
-    context = {'BaseDir':config['INPUT_DATA_DIR'], 'metadata':metadata[0], 'apkInfoTree':apkInfoTree_swap, 'apkTree':apkTree, 'max_cluster':metadata[0]['clusters'], 'cluster_num':range(int(metadata[0]['clusters'])),'new_max_cluster':new_cluster_no_count, 'staticPath':STATIC_PATH,'picturePath':PICTURE_PATH, 'language':'zh','hightlightCluster':hightlightCluster,'averAPIs':len(rawapkTree[0]['api_type']),'current_db':DBNAME,'cluster_show_dict':cluster_show_dict}
+    context = {'cluster_no':cluster_no,'BaseDir':config['INPUT_DATA_DIR'], 'metadata':metadata[0], 'apkInfoTree':apkInfoTree_swap, 'apkTree':apkTree, 'max_cluster':metadata[0]['clusters'], 'cluster_num':range(int(metadata[0]['clusters'])),'new_max_cluster':new_cluster_no_count, 'staticPath':STATIC_PATH,'picturePath':PICTURE_PATH, 'language':'zh','hightlightCluster':hightlightCluster,'averAPIs':len(rawapkTree[0]['api_type']),'current_db':DBNAME,'cluster_show_dict':cluster_show_dict}
     #print(context)
 
     if galleryId == 'outlier':
@@ -640,8 +672,8 @@ def evaluate(request,projectName='MW_pca',subtask_name='spm_pca300_optics3'):
         apkTree[i]['isOutlier'] = ''
         print('what the fuck',apkTree[i]['outlier_score'],'===')
         #if float(apkTree[i]['outlier_score']) <= -0.55:
-        if float(apkTree[i]['outlier_score']) <= -0.3:
-        #if float(apkTree[i]['outlier_score']) > 3:
+        if float(apkTree[i]['outlier_score']) <= 1:
+        #if float(apkTree[i]['outlier_score']) > :
             apkTree[i]['isOutlier'] = 'outlier'
             # 现在只有是outlier的才被加入
             rawapkTree[i]['widget'] = ''.join(rawapkTree[i]['widget'].split(', '))

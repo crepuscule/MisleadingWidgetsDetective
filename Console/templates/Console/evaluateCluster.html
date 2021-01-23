@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css">
     <!-- Custom Styles-->
     <!-- Google Fonts-->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <title>Outliers Preview</title>
-	
+
     <link href="{{staticPath}}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <style> 
+    <style>
 	.button_text{
 		font-size: 15px;
 		text-overflow: ellipsis;
@@ -82,7 +82,7 @@
 		display:none;
 	}
         .outlier{
-	   border:2px solid #C3464F;
+	   /*border:2px solid #C3464F;*/
 	}
         .hightlight{
 	   border:2px solid #FFCC00;
@@ -100,28 +100,34 @@
     .isotopeSelect{
         margin-bottom:60px;
     }
+    .suspect{
+      color: red;
+    }
+    .notsuspect{
+
+    }
     </style>
 
-     
+
 </head>
 
 <body>
                 <div class="">
                     <div class="col-md-12">
                         <h1 class="" style="text-align:center;">
-				Outliers Preview 
+				Outliers Preview
                         </h1>
       				<h1 style="text-align:center;margin-bottom:30px;"><small>{{current_db}}: {{metadata.project_name}}.{{metadata.subtask_name}} &nbsp; {{max_cluster}} clusters total</small></h1>
 
 			<hr/>
                     </div>
                 </div>
-				
-				
+
+
                 <div class="row panel"  style="padding-bottom:50px;">
 		<section id="page-content" class="index-page ">
-		
-			<input type="range" value="-1" min="0" max="{{new_max_cluster}}" id="one" style="position: fixed;bottom:40%;right:-13%;" />
+
+			<input type="range" value="0" min="-1" max="{{new_max_cluster}}" id="one" style="position: fixed;bottom:40%;right:-13%;" />
 			<div id="uno" style="position: fixed;bottom:2.5%;right:3.7%;">*&nbsp;</div>
 			<div id="changeApiShow" style="position:fixed; top:16%;right:3.6%;font-size: 25px;"><i id="showIcon" class="fa fa-th-large"></i> </div>
 
@@ -135,43 +141,47 @@
 					      <span class="input-group-btn" >
 						<button class="btn btn-default" style="margin-top:15px;margin-left:5px;border-radius:0px;" id='search' type="button">Find Clusters</button>
 					      </span>
+                <span class="input-group-btn" >
+                  <button id='exportCSV' class="btn btn-info" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Export Suspects</button>
+                </span>
 					    </div>
 					  </div>
 					</div>
-					
-					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
-						{% for info in apkInfoTree %}
-                        <!--{% for key,value in  cluster_show_dict.items %}
-                            {% if key == info.1.cluster_no and value == True %}-->
-						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.new_cluster_no}} ">
-                            <p style="text-align:center;margin-top:-5px;">{{info.1.outlier_score}}RC:{{info.1.cluster_no}}</p>
-							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
-							<button type="button" class="btn btn-default center "  data-clipboard-target="#C{{info.0.widget}}" data-toggle="tooltip" data-placement="bottom" title="Click to Copy:{{info.0.path}}"><p class="button_text">{{info.0.app}}</p></button>
-							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.path}}</p>
 
-							<div class="apiType hidden" >
-								<ul >
-								{% for typeItem in info.0.api_type %}
-								<li>{{typeItem}}</li>
-								{% endfor %}
-								<ul>
-							</div>
-						<!--<div class="apiContent hidden" >
-							<ul type='square'>
-							{% for apiItem in info.0.api %}
-							<li>{{apiItem}}</li>
-							{% endfor %}
-							<ul>
-						</div>-->
-						</div>
-						<!--{% endif %}
-						{% endfor %}-->
-						{% endfor %}
+					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
+					{% for info in apkInfoTree %}
+    						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.new_cluster_no}} ">
+                    <p style="text-align:center;margin-top:-5px;">RC{{info.1.cluster_no}} O{{info.1.outlier_score}}</p>
+      							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
+      							<button type="button" class="btn btn-default center markAsSuspect notsuspect"  data-toggle="tooltip" data-placement="bottom" title="Click to Copy:{{info.0.app}}">
+                      <p class="button_text">{{info.0.app}}</p>
+                      <p class="info" style="opacity:0;font-size:0px;" app="{{info.0.app}}" widget="{{info.0.widget}}" appwebsite="{{info.1.appwebsite}}" iconaddr="{{picturePath}}{{BaseDir}}{{info.0.path}}"
+                      clusteraddress="{{info.1.new_cluster_no}}" realclusteraddress="{{info.1.cluster_no}}"  api="{{info.0.api_string}}"></p>
+                      <!-- data-clipboard-target="#C{{info.0.widget}}" -->
+                    </button>
+      							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.app}}</p>
+
+      							<div class="apiType hidden" >
+      								<ul >
+      								{% for typeItem in info.0.api_type %}
+      								<li>{{typeItem}}</li>
+      								{% endfor %}
+                      </ul>
+      							</div>
+      						<!--<div class="apiContent hidden" >
+      							<ul type='square'>
+      							{% for apiItem in info.0.api %}
+      							<li>{{apiItem}}</li>
+      							{% endfor %}
+      							<ul>
+      						</div>-->
+    						</div>
+					{% endfor %}
 					</div>
 				</div>
 
 			</section>
-					
+
 	<script type="text/javascript" src="{{staticPath}}/js/jquery-1.10.2.js"></script>
     <script src="{{staticPath}}/js/jquery.metisMenu.js"></script>
 
@@ -182,12 +192,13 @@
 	<!-- ========== Scripts ========== -->
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+  <!-- <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script> -->
 	<!-- Definity JS -->
 	<script type="text/javascript">
 		console.log('reday')
 		window.apiShowStatus = 0
 		window.averAPIs = {{averAPIs}}
+    window.myWidgets = new Array();
 		$(document).ready(function () {
 			function filter(filterValue){
 				$('.isotopeSelect').addClass('totalhidden')
@@ -198,6 +209,15 @@
 			// 如果hightlight，选hightlight所在簇
 			hightlightCluster = ({{hightlightCluster}}).toString()
 			if (hightlightCluster != '')filter('.C'+hightlightCluster)
+
+      current_cluster_no = ({{cluster_no}}).toString()
+      console.log('current_cluster_no',current_cluster_no)
+      if (current_cluster_no !=''){
+        $('#uno').html(current_cluster_no)
+        filterValue = '.C' + current_cluster_no
+        filter(filterValue)
+      }
+
 			$('#one').bind('input ',function(){
 				console.log('input!')
 				$('#uno').html($(this).val())
@@ -240,9 +260,44 @@
 					window.apiShowStatus = 0
 				}else{}
 			});
+
+      $('.markAsSuspect').click(function () {
+        console.log('marking!')
+        if ($(this).hasClass('btn-default')){
+          $(this).removeClass('btn-default').addClass('btn-info')
+          var clusteraddress = 'C'+$(this).children(".info").attr('clusteraddress')+' RC'+$(this).children(".info").attr('realclusteraddress')
+          var clusterlinkIndex = window.location.href.lastIndexOf("\/")
+          var clusterlink = window.location.href.substring(0,clusterlinkIndex)+'/'+$(this).children(".info").attr('clusteraddress')
+          var newSuspect =
+            {'type':'',
+             'database':'{{current_db}}',
+             'app':$(this).children(".info").attr('app'),
+             'widget':$(this).children(".info").attr('widget'),
+             'appwebsite':$(this).children(".info").attr('appwebsite'),
+             'iconaddr':$(this).children(".info").attr('iconaddr'),
+             'icon':'',
+             'clusteraddress':clusteraddress,
+             'clusterlink':clusterlink,
+             'appscreenshot':'',
+             'clusterscreenshot':'',
+             'api':$(this).children(".info").attr('api')
+           }
+           console.log(newSuspect)
+           window.myWidgets.push(newSuspect)
+        }else{
+          $(this).removeClass('btn-info').addClass('btn-default')
+          for(var i=0;i<window.myWidgets.length;i++){
+            if (window.myWidgets[i].app == $(this).children(".info").attr('app') && window.myWidgets[i].widget == $(this).children(".info").attr('widget')){
+              window.myWidgets.splice(i,1)
+            }
+          }
+        }
+
+      });
+
 		});
 	</script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
                 var clipboard = new ClipboardJS('.btn');
                 clipboard.on('success', function(e) {
                 console.info('Action:', e.action);
@@ -254,7 +309,53 @@
                 console.error('Action:', e.action);
                 console.error('Trigger:', e.trigger);
                 });
-	</script>
+	</script> -->
+
+  <script src="{{staticPath}}/js/json2csv.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+      // 使用该脚本自动记录人认为可疑的控件，生成csv
+      //CSV:类型 库 控件名 控件网址(自动生成Google和Fdroid) 图标地址 图标本身 簇地址 簇地址链接 *应用截图* *簇截图* 该控件的API
+      // 示例数据
+      var fields = ['type', 'database', 'app', 'widget','appwebsite','iconaddr',
+      'icon','clusteraddress','clusterlink','appscreenshot','clusterscreenshot','api'];
+      // var myWidgets = [
+      //   {
+      //     "car": "Audi",
+      //     "price": 40000,
+      //     "color": "blue"
+      //   },];
+      // json数据转csv格式
+      var csv = json2csv({ data: window.myWidgets, fields: fields });
+
+      var eleButton = document.querySelector('#exportCSV');
+
+      // 下载文件方法
+      var funDownload = function (content, filename) {
+          var eleLink = document.createElement('a');
+          eleLink.download = filename;
+          eleLink.style.display = 'none';
+          // 字符内容转变成blob地址
+          var blob = new Blob([content]);
+          eleLink.href = URL.createObjectURL(blob);
+          // 触发点击
+          document.body.appendChild(eleLink);
+          eleLink.click();
+          // 然后移除
+          document.body.removeChild(eleLink);
+      };
+
+      if ('download' in document.createElement('a')) {
+          // 作为test.html文件下载
+          eleButton.addEventListener('click', function () {
+              funDownload(csv, 'test.csv');
+          });
+      } else {
+          eleButton.onclick = function () {
+              alert('浏览器不支持');
+          };
+      }
+  </script>
+
 	<script src="{{staticPath}}/js/html5slider.js"></script>
 </body>
 

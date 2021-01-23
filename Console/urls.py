@@ -13,6 +13,7 @@ urlpatterns = [
     # Console/console.html
     path('console',views.console), 
     path('changedb/<str:db_name>',views.chooseDataBase), 
+    path('changeapkforest/<str:apkforest>',views.chooseRawApkForest),
     # Console/submitRun.html
     path('submitRun',views.submitRun), 
     # Console/projects.html
@@ -24,7 +25,7 @@ urlpatterns = [
     # Console/subtask.html
     path('subtask/<str:projectName>/<str:subtask_name>',views.subtask), 
     # Console/album_outlier.html
-    path('album/<str:projectName>/<str:subtask_name>/<str:galleryId>/<str:hightlightClusterId>',views.album), 
+    path('album/<str:projectName>/<str:subtask_name>/<str:galleryId>/<str:hightlightClusterId>/<int:cluster_no>',views.album), 
     #re_path(r'^album/(?P<projectName>[0-9a-z]*)/(?P<subtask_name>[0-9a-z]*)/<(?P<galleryId>[0-9a-z]*)/(?P<hightlightCluster>[0-9a-z]*)/(?P<hightlightId>[0-9a-z]*)',views.album), 
     # Console/album_tagging.html
     path('tagging/<str:projectName>/<str:subtask_name>/<str:widget_id>',views.tagging), 
