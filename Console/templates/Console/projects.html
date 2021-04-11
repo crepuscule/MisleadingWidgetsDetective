@@ -312,7 +312,13 @@
                                                 <th>No</th>
                                                 <th>Project Name</th>
                                                 <th>SubTask Name</th>
+                                                <th>Experiment</th>
                                                 <th>Update Time</th>
+                                                <th>Eval 1</th>
+                                                <th>Eval 2</th>
+                                                <th>Eval 3</th>
+                                                <th>Eval Sum</th>
+                                                <th>Remarks</th>
                                                 <th>Link</th>
                                             </tr>
                                         </thead>
@@ -320,9 +326,15 @@
 					{% for subtask in subtaskDictList %}
                                             <tr>
 						<td>{{subtask.no}}</td>
-						<td>{{subtask.projectName}}</td>
-						<td>{{subtask.subtaskName}}</td>
-						<td>{{subtask.updateTime}}</td>
+						<td>{{subtask.project_name}}</td>
+						<td>{{subtask.subtask_name}}</td>
+                        <td>{{subtask.Experiment}}</td>
+						<td>{{subtask.update_time}}</td>
+                        <td>{{subtask.Eval1}}</td>
+                        <td>{{subtask.Eval2}}</td>
+                        <td>{{subtask.Eval3}}</td>
+                        <td><a href="{{subtask.EvalSum_link}}">{{subtask.EvalSum}}</a></td>
+                        <td><a class='remark'  project_name="{{subtask.project_name}}" subtask_name="{{subtask.subtask_name}}">{{subtask.remark}}</a></td>
 						<td><a href="{{subtask.link}}">Click</a></td>
                                             </tr>
 					{% endfor %}
@@ -362,6 +374,29 @@
                     "pageLength": 10,
                     "lengthMenu": [ 10,25,50,75,100 ]
                     });
+                $('.remark').click(function(){
+                    var remark = prompt('Remark this subtask:','...')
+                    if(remark == null)
+                        return ''
+                    console.log($(this).attr('project_name'),$(this).attr('subtask_name'),remark)
+                    $.ajax({
+                        type:'GET',
+                        url: '/Console/remarksubtask',
+                        data: {'project_name':$(this).attr('project_name'),'subtask_name':$(this).attr('subtask_name'),'remark':remark},
+                        dataType:'json',
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function(data) { 
+                            alert(data['msg'])
+                            window.location.href='projects'
+                        },
+                         error: function(xhr, type) {
+                                 console.log('error!')
+                         }
+                        
+  
+                    });
+             })
+                
             });
     </script>
     <!-- Metis Menu Js -->

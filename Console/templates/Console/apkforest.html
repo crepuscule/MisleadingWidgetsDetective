@@ -150,7 +150,7 @@
 						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.image_cluster_no}} ">
                 <p style="text-align:center;margin-top:-5px;">{{info.app}}</p>
 							<img src="{{picturePath}}{{BaseDir}}{{info.path}}"  alt="" style="margin: auto;width: 224px;">
-							<button type="button" class="btn btn-success center" id="{{info.id}}" value='1'><p class="button_text">Delete</p></button>
+							<button type="button" class="btn btn-success center" id="{{info.id}}" path="{{info.path}}" value='1'><p class="button_text">Delete</p></button>
 							<p style="opacity:0;font-size:0px;" id="C{{info.widget}}">{{BaseDir}}{{info.path}}</p>
 						</div>
 						{% endfor %}
@@ -174,13 +174,17 @@
 	<!-- ========== Scripts ========== -->
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+    <!--<script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>-->
+    <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/src/clipboard.js"></script>
+    
 	<!-- Definity JS -->
 	<script type="text/javascript">
 		console.log('reday')
 		window.apiShowStatus = 0
-		window.averAPIs = {{averAPIs}}
+		//window.averAPIs = {{averAPIs}}
         window.widgets = new Array()
+        window.tagType = "{{tagType}}"
+        window.database = "{{current_db}}"
 		$(document).ready(function () {
 			function filter(filterValue){
 				$('.isotopeSelect').addClass('totalhidden')
@@ -270,28 +274,51 @@
     })
 
     $('#submit').click(function(){
-        $('.center').each(function(){
-            //console.log([$(this).attr('id') ,$(this).attr('value')])
-            //# 可以默认为1，提交为2.也可以取出时有为2，默认为1
-            if( $(this).attr('value') == 2)
-                window.widgets += $(this).attr('id')+';'
-            //window.widget_ids.push($(this).attr('id'))
-            //window.widget_states.push($(this).attr('value'))
-        })
-        // [(id,1/0)]
-        $.ajaxSetup({
-            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
-        })
-        console.log('windows.videos值为\n',window.widgets)
-        $.post(
-            '/Console/apkForestSubmit',
-            {widgets:window.widgets,apkforestName:"{{current_apkforest}}"},
-            function(result){
-                alert('提交成功,自动切换到列表页')
-                window.location.href="/Console/apkforestlist"
-            }   
-
-        );
+        if(window.tagType == 'apkforest'){
+            $('.center').each(function(){
+                //console.log([$(this).attr('id') ,$(this).attr('value')])
+                //# 可以默认为1，提交为2.也可以取出时有为2，默认为1
+                if( $(this).attr('value') == 2)
+                    window.widgets += $(this).attr('id')+';'
+                //window.widget_ids.push($(this).attr('id'))
+                //window.widget_states.push($(this).attr('value'))
+            })
+            // [(id,1/0)]
+            $.ajaxSetup({
+                data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+            })
+            console.log('windows.videos值为\n',window.widgets)
+            $.post(
+                '/Console/apkForestSubmit',
+                {widgets:window.widgets,apkforestName:"{{current_apkforest}}"},
+                function(result){
+                    alert('提交成功,自动切换到列表页')
+                    window.location.href="/Console/apkforestlist"
+                }   
+            );
+            
+        }else{
+            $('.center').each(function(){
+                //# 可以默认为1，提交为2.也可以取出时有为2，默认为1
+                if( $(this).attr('value') == 2)
+                    window.widgets += $(this).attr('path')+';'
+            })
+            // [(id,1/0)]
+            $.ajaxSetup({
+                data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+            })
+            console.log('windows.videos值为\n',window.widgets)
+            $.post(
+                '/Console/submitrawdatabasetag/'+window.database,
+                {widgets:window.widgets},
+                function(result){
+                    alert('提交成功,自动切换到列表页')
+                    window.location.href="/Console/console"
+                }   
+            );
+        
+        
+        }
     })
 
     });

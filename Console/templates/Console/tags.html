@@ -313,6 +313,7 @@
                                                 <th>Project Name</th>
                                                 <th>SubTask Name</th>
                                                 <th>Update Time</th>
+                                                <th>Remarks</th>
                                                 <th>Tagging Link</th>
                                             </tr>
                                         </thead>
@@ -320,9 +321,10 @@
 					{% for subtask in subtaskDictList %}
                                             <tr>
 						<td>{{subtask.no}}</td>
-						<td>{{subtask.projectName}}</td>
-						<td>{{subtask.subtaskName}}</td>
-						<td>{{subtask.updateTime}}</td>
+						<td>{{subtask.project_name}}</td>
+						<td>{{subtask.subtask_name}}</td>
+						<td>{{subtask.update_time}}</td>
+						<td><a class='remark'  project_name="{{subtask.project_name}}" subtask_name="{{subtask.subtask_name}}">{{subtask.remark}}</a></td>
 						<td><a href="{{subtask.tagging_link}}">Click</a></td>
                                             </tr>
 					{% endfor %}
@@ -362,6 +364,29 @@
                     "pageLength": 10,
                     "lengthMenu": [ 10,25,50,75,100 ]
                     });
+            $('.remark').click(function(){
+                var remark = prompt('Remark this database:','for ...')
+                if(remark == null)
+                    return ''
+                console.log($(this).attr('project_name'),$(this).attr('subtask_name'),remark)
+                $.ajax({
+                    type:'GET',
+                    url: '/Console/remarksubtask',
+                    data: {'project_name':$(this).attr('project_name'),'subtask_name':$(this).attr('subtask_name'),'remark':remark},
+                    dataType:'json',
+                    contentType: 'application/json; charset=UTF-8',
+                    success: function(data) { 
+                        alert(data['msg'])
+                        window.location.href='tags'
+                    },
+                     error: function(xhr, type) {
+                             console.log('error!')
+                     }
+                    
+
+                });
+            })
+                
             });
     </script>
     <!-- Metis Menu Js -->
@@ -371,5 +396,6 @@
     <script src="{{staticPath}}/js/morris/morris.js"></script>
     <!-- Custom Js -->
     <script src="{{staticPath}}/js/custom-scripts.js"></script>
+
 </html>
 ﻿<!DOCTYPE html>

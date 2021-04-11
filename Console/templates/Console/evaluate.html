@@ -15,10 +15,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Free Responsive Html5 Templates">
-    
-	
+
+
     <title>Clusters Preview</title>
-	
+
     <!-- Bootstrap Core CSS -->
     <link href="{{staticPath}}/gallery-css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom CSS -->
@@ -26,10 +26,10 @@
 	<!-- Animate.css -->
 	<link href="{{staticPath}}/gallery-css/animate.css" rel="stylesheet" media="all" type="text/css">
 	<!-- Lightbox.css -->
-	<link href="{{staticPath}}/gallery-css/lightbox.min.css" rel="stylesheet" media="all" type="text/css">
+	<!-- <link href="{{staticPath}}/gallery-css/lightbox.min.css" rel="stylesheet" media="all" type="text/css"> -->
 	<!-- Custom Fonts -->
     <link href="{{staticPath}}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <style> 
+    <style>
 	.button_text{
 		font-size: 15px;
 		text-overflow: ellipsis;
@@ -116,7 +116,7 @@
 <div class="wrap-body">
 	<!--////////////////////////////////////Container-->
 	<section id="page-content" class="index-page">
-	
+
 		<!--<input type="range" value="-1" min="0" max="{{max_cluster}}" id="one" style="position: fixed;bottom:50%;right:-14%;" />
 		<div id="uno" style="position: fixed;bottom:10%;right:2.7%;">!&nbsp;</div>-->
 
@@ -166,7 +166,7 @@
 					  <!--<p class="fafont" id="next">Previous Cluster&nbsp;<i class="fa fa-arrow-right "></i></p>-->
 					  <button type="button" class="btn btn-default buttonfont" id="next">Next&nbsp;&nbsp;&nbsp;&nbsp;Page</button>
 				  </div>
-				  </form>
+				</form>
 				<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
 					{% for info in outlierapkInfoTree %}
 					<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.cluster_no}} P{{info.1.page}}">
@@ -180,7 +180,7 @@
 			</div>
 
 		</section>
-				
+
 	</section>
 			<p class='fafont'  style="margin-top:20px;text-align:center;" id='page'>
 				1/{{max_page}}
@@ -194,10 +194,10 @@
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/SmoothScroll.js"></script>
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/wow.min.js"></script>
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
-	<script type="text/javascript" src="{{staticPath}}/gallery-js/lightbox.min.js"></script>
+	<!-- <script type="text/javascript" src="{{staticPath}}/gallery-js/lightbox.min.js"></script> -->
 	<!-- Definity JS -->
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/main.js"></script>
-	<script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script>
+	<!-- <script src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script> -->
 	<script type="text/javascript">
 		console.log('reday')
 		function setCookie(name,value)
@@ -300,7 +300,7 @@
 		//setInterval("clock()",120000);
 		//setInterval("clock()",5000);
 	</script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		var clipboard = new ClipboardJS('.btn');
 		clipboard.on('success', function(e) {
 		console.info('Action:', e.action);
@@ -312,7 +312,7 @@
 		console.error('Action:', e.action);
 		console.error('Trigger:', e.trigger);
 		});
-	</script>
+	</script> -->
 	<script src="{{staticPath}}/js/html5slider.js"></script>
 </div>
 </body>

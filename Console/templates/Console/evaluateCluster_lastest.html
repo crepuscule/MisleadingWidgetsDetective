@@ -1,0 +1,415 @@
+﻿<!--  最常用的，要给别人看得 evaluateCluster.html`-->
+<!--查看详细簇的html,目前需要显示API -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <!-- Bootstrap Styles-->
+    <link href="{{staticPath}}/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <!--<link href="{{staticPath}}/css/font-awesome.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="http://libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css">
+    <!-- Custom Styles-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <title>Outliers Preview</title>
+
+    <link href="{{staticPath}}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+	.button_text{
+		font-size: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;/* 超出的文本隐藏 */
+		color: black;
+		padding-top:0px;
+		z-index:-1;
+	}
+	.outer{
+	    width: 224px;
+	    height: 258px;
+	    position: relative;
+	    margin-right: 30px;
+	    margin-bottom: 30px;
+	}
+	.outer_with_api_smi{
+	    width: 224px;
+	    height: 350px;
+	    position: relative;
+	    margin-right: 30px;
+	    margin-bottom: 30px;
+	}
+	.outer_with_api{
+	    width: 224px;
+	    height: 400px;
+	    position: relative;
+	    margin-right: 30px;
+	    margin-bottom: 30px;
+	}
+	.center{
+	    width:200px;
+	    height: 34px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    position: absolute;
+	    border-radius: 0px;
+	    z-index:1;
+	}
+	.apiType{
+	    font-size: 13px;
+	    width:224px;
+	    height: 142px;
+	    margin-top: 50px;
+	    margin-bottom: 100px;
+	    position: absolute;
+	    text-align:center;
+	    /*white-space: nowrap;*/
+	    overflow:auto;
+	    text-overflow: ellipsis;
+	}
+	.apiContent{
+	    font-size: 13px;
+	    width:224px;
+	    height: 34px;
+	    margin-top: 100px;
+	    position: absolute;
+	    text-align:center;
+	}
+	.hidden{
+		display:none;
+	}
+	.totalhidden{
+		display:none;
+	}
+        .outlier{
+	   /*border:2px solid #C3464F;*/
+	}
+        .hightlight{
+	   border:2px solid #FFCC00;
+	}
+    	input[type=range]:first-of-type {
+          width: 650px;
+        }
+        #one {
+                transform: rotate(90deg);
+                -ms-transform: rotate(90deg); /* IE 9 */
+                -moz-transform: rotate(90deg); /* Firefox */
+                -webkit-transform: rotate(90deg); /* Safari and Chrome */
+                -o-transform: rotate(90deg); /* Opera */
+        }
+    .isotopeSelect{
+        margin-bottom:60px;
+    }
+    .suspect{
+      color: red;
+    }
+    .notsuspect{
+
+    }
+    </style>
+
+
+</head>
+
+<body>
+                <div class="">
+                    <div class="col-md-12">
+                        <h1 class="" style="text-align:center;">
+				Outliers Preview
+                        </h1>
+      				<h1 style="text-align:center;margin-bottom:30px;"><small>{{current_db}}: {{metadata.project_name}}.{{metadata.subtask_name}} &nbsp; {{max_cluster}} clusters total</small></h1>
+
+			<hr/>
+                    </div>
+                </div>
+
+
+                <div class="row panel"  style="padding-bottom:50px;">
+		<section id="page-content" class="index-page ">
+
+			<input type="range" value="0" min="-1" max="{{new_max_cluster}}" id="one" style="position: fixed;bottom:40%;right:-13%;" />
+			<div id="uno" style="position: fixed;bottom:4.5%;right:3.7%;">*&nbsp;</div>
+      <button id="next" class="btn btn-default" style="position: fixed;bottom:0%;right:3.7%;">下一页</button>
+			<div id="changeApiShow" style="position:fixed; top:16%;right:3.6%;font-size: 25px;"><i id="showIcon" class="fa fa-th-large"></i> </div>
+
+			<section class="box-content box-1">
+				<div class="container" style="width:100%;height:1000px;">
+					<div class="heading wow" style="margin-bottom: 0px;">
+					<div class="row" style="margin-bottom: 30px;">
+					  <div class="col-md-3 col-md-offset-5">
+					    <div class="input-group" >
+					      <input type="text" class="form-control" style="margin-top:15px;" placeholder="Search for..." id="searchFilter">
+					      <span class="input-group-btn" >
+						<button class="btn btn-default" style="margin-top:15px;margin-left:5px;border-radius:0px;" id='search' type="button">Find Clusters</button>
+					      </span>
+                <span class="input-group-btn" >
+                  <button id='exportCSV' class="btn btn-info" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Export Suspects</button>
+                </span>
+                <span class="input-group-btn" >
+                  <button id='clearSuspects' class="btn btn-warning" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Clear Suspects</button>
+                </span>
+					    </div>
+					  </div>
+					</div>
+
+					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
+					{% for info in apkInfoTree %}
+    						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.new_cluster_no}} ">
+                    <p style="text-align:center;margin-top:-5px;">RC{{info.1.cluster_no}} O{{info.1.outlier_score}}</p>
+      							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
+      							<button type="button" class="btn btn-default center markAsSuspect notsuspect"  data-toggle="tooltip" data-placement="bottom" title="Click to Copy:{{info.0.app}}">
+                      <p class="button_text">{{info.0.app}}</p>
+                      <p class="info" style="opacity:0;font-size:0px;" app="{{info.0.app}}" widget="{{info.0.widget}}" appwebsite="{{info.1.appwebsite}}" iconaddr="{{picturePath}}{{BaseDir}}{{info.0.path}}"
+                      clusteraddress="{{info.1.new_cluster_no}}" realclusteraddress="{{info.1.cluster_no}}"  api="{{info.0.api_string}}"></p>
+                      <!-- data-clipboard-target="#C{{info.0.widget}}" -->
+                    </button>
+      							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.app}}</p>
+
+      							<div class="apiType hidden" >
+      								{% for typeItem in info.0.api_type %}
+      								  <p>{{typeItem}}</p>
+      								{% endfor %}
+      							</div>
+      						<!--<div class="apiContent hidden" >
+      							<ul type='square'>
+      							{% for apiItem in info.0.api %}
+      							<li>{{apiItem}}</li>
+      							{% endfor %}
+      							<ul>
+      						</div>-->
+    						</div>
+					{% endfor %}
+					</div>
+				</div>
+
+			</section>
+
+	<script type="text/javascript" src="{{staticPath}}/js/jquery-1.10.2.js"></script>
+    <script src="{{staticPath}}/js/jquery.metisMenu.js"></script>
+
+    <script src="{{staticPath}}/js/bootstrap.min.js"></script>
+    <!-- Custom Js -->
+
+	<!--<div id="page-top"><a href="#page-top" class="btn btn-toTop"><i class="fa fa-angle-double-up"></i></a></div>-->
+	<!-- ========== Scripts ========== -->
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
+  <script src="{{staticPath}}/js/json2csv.js" type="text/javascript" charset="utf-8"></script>
+  <!-- <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script> -->
+	<!-- Definity JS -->
+	<script type="text/javascript">
+		console.log('reday')
+		window.apiShowStatus = 0
+		window.averAPIs = {{averAPIs}}
+    window.myWidgets = new Array();
+		$(document).ready(function () {
+			function filter(filterValue){
+				$('.isotopeSelect').addClass('totalhidden')
+				console.log('filtering',filterValue)
+				$(filterValue).removeClass('totalhidden')
+				console.log(filterValue,'done')
+			}
+			// 如果hightlight，选hightlight所在簇
+			hightlightCluster = ({{hightlightCluster}}).toString()
+			if (hightlightCluster != '')filter('.C'+hightlightCluster)
+
+      current_cluster_no = ({{cluster_no}}).toString()
+      console.log('current_cluster_no',current_cluster_no)
+      if (current_cluster_no !=''){
+        $('#uno').html(current_cluster_no)
+        filterValue = '.C' + current_cluster_no
+        filter(filterValue)
+      }
+
+			$('#one').bind('input ',function(){
+				console.log('input!')
+				$('#uno').html($(this).val())
+				filterValue = '.C' + $(this).val()
+				filter(filterValue)
+			})
+
+      $('#next').click(function(){
+        current_cluster_no = $('#uno').html()
+        if(current_cluster_no == '*'){
+          current_cluster_no = 1
+        }else{
+          current_cluster_no = parseInt(current_cluster_no) +1
+        }
+        $('#uno').html(current_cluster_no)
+        filterValue = '.C' + current_cluster_no
+        filter(filterValue)
+      });
+
+			$('#search').click(function () {
+				console.log('click!')
+				var filterValue = $('#searchFilter').val();
+				if(filterValue == "*"){
+					filterValue = '.isotopeSelect'
+				}else{
+					filterValue = '.C' + $('#searchFilter').val();
+				}
+				filter(filterValue)
+			});
+
+			$('#changeApiShow').click(function () {
+				console.log('change api show!')
+				// 是0则当前正常，按下后显示类型 fa-th-large
+				if (window.apiShowStatus == 0){
+					$('.apiType').removeClass('hidden')
+					$('.outer').removeClass('outer').addClass('outer_with_api')
+					$('#showIcon').removeClass('fa-th-large').addClass('fa-th-list')
+					window.apiShowStatus = 1
+				}
+				// 是1则当前仅显示类型，按下后显示具体内容 fa-th-list
+				//else if (window.apiShowStatus == 1){
+				//	$('.apiContent').removeClass('totalhidden')
+				//	$('#showIcon').removeClass('fa-th-list').addClass('fa-list')
+				//	window.apiShowStatus = 2
+				//}
+				// 是2则当前全部显示，按下后还原 fa-list
+				else if (window.apiShowStatus == 1){
+					//$('.apiContent').addClass('totalhidden')
+					$('.apiType').addClass('hidden')
+					$('.outer_with_api').removeClass('outer_with_api_smi').removeClass('outer_with_api').addClass('outer')
+					//$('#showIcon').removeClass('fa-list').addClass('fa-th-large')
+					$('#showIcon').removeClass('fa-th-list').addClass('fa-th-large')
+					window.apiShowStatus = 0
+				}else{}
+			});
+
+      $('.markAsSuspect').click(function () {
+        console.log('marking!')
+        if ($(this).hasClass('btn-default')){
+          $(this).removeClass('btn-default').addClass('btn-info')
+          var clusteraddress = 'C'+$(this).children(".info").attr('clusteraddress')+' RC'+$(this).children(".info").attr('realclusteraddress')
+          var clusterlinkIndex = window.location.href.lastIndexOf("\/")
+          var clusterlink = window.location.href.substring(0,clusterlinkIndex)+'/'+$(this).children(".info").attr('clusteraddress')
+          sotreinfo = '{{current_db}}'+' : '+$(this).children(".info").attr('iconaddr')+' | '+$(this).children(".info").attr('widget')
+          var newSuspect =
+            {'type':'',
+             'appwebsite':$(this).children(".info").attr('appwebsite'),
+             'app':$(this).children(".info").attr('app'),
+             'iconaddr':$(this).children(".info").attr('iconaddr'),
+             'icon':'',
+             'clusteraddress':clusteraddress,
+             'clusterlink':clusterlink,
+             'appscreenshot':'',
+             'clusterscreenshot':'',
+             'api':$(this).children(".info").attr('api'),
+             'problem':'',
+             'explain':'',
+             'storeinfo':sotreinfo,
+           }
+           console.log(newSuspect)
+           window.myWidgets.push(newSuspect)
+        }else{
+          $(this).removeClass('btn-info').addClass('btn-default')
+          for(var i=0;i<window.myWidgets.length;i++){
+            if (window.myWidgets[i].app == $(this).children(".info").attr('app') && window.myWidgets[i].widget == $(this).children(".info").attr('widget')){
+              window.myWidgets.splice(i,1)
+            }
+          }
+        }
+
+      });
+
+    var funDownload = function (content, filename) {
+        var eleLink = document.createElement('a');
+        eleLink.download = filename;
+        eleLink.style.display = 'none';
+        // 字符内容转变成blob地址
+        var blob = new Blob([content]);
+
+        eleLink.href = URL.createObjectURL(blob);
+        console.log('eleLink.href',eleLink.href)
+        // 触发点击
+        document.body.appendChild(eleLink);
+        eleLink.click();
+        // 然后移除
+        document.body.removeChild(eleLink);
+    };
+    $('#exportCSV').click(function(){
+      var fields = ['type','appwebsite','app','iconaddr','icon','clusteraddress',
+      'clusterlink','appscreenshot','clusterscreenshot','api','problem','explain','storeinfo'];
+      var csv = json2csv({ data: window.myWidgets, fields: fields });
+      funDownload(csv, 'test.csv');
+    });
+    $('#clearSuspects').click(function(){
+        $('.markAsSuspect').each(function(){
+          $(this).removeClass('btn-info').addClass('btn-default')
+        })
+        window.myWidgets = new Array();
+    });
+
+
+
+		});
+	</script>
+	<!-- <script type="text/javascript">
+                var clipboard = new ClipboardJS('.btn');
+                clipboard.on('success', function(e) {
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+                e.clearSelection();
+                });
+                clipboard.on('error', function(e) {
+                console.error('Action:', e.action);
+                console.error('Trigger:', e.trigger);
+                });
+	</script> -->
+
+
+  <!-- <script type="text/javascript" charset="utf-8">
+      // 使用该脚本自动记录人认为可疑的控件，生成csv
+      //CSV:类型 库 控件名 控件网址(自动生成Google和Fdroid) 图标地址 图标本身 簇地址 簇地址链接 *应用截图* *簇截图* 该控件的API
+      // 示例数据
+      var fields = ['type', 'database', 'app', 'widget','appwebsite','iconaddr',
+      'icon','clusteraddress','clusterlink','appscreenshot','clusterscreenshot','api'];
+      // var myWidgets = [
+      //   {
+      //     "car": "Audi",
+      //     "price": 40000,
+      //     "color": "blue"
+      //   },];
+      // json数据转csv格式
+      var myWidgets = window.myWidgets
+      console.log('myWidgets in this',myWidgets)
+      var csv = json2csv({ data: myWidgets, fields: fields });
+      console.log('csv in this',csv)
+
+      var eleButton = document.querySelector('#exportCSV');
+
+      // 下载文件方法
+      var funDownload = function (content, filename) {
+          var eleLink = document.createElement('a');
+          eleLink.download = filename;
+          eleLink.style.display = 'none';
+          // 字符内容转变成blob地址
+          var blob = new Blob([content]);
+
+          eleLink.href = URL.createObjectURL(blob);
+          console.log('eleLink.href',eleLink.href)
+          // 触发点击
+          document.body.appendChild(eleLink);
+          eleLink.click();
+          // 然后移除
+          document.body.removeChild(eleLink);
+      };
+
+      if ('download' in document.createElement('a')) {
+          // 作为test.html文件下载
+          eleButton.addEventListener('click', function () {
+              funDownload(csv, 'test.csv');
+          });
+      } else {
+          eleButton.onclick = function () {
+              alert('浏览器不支持');
+          };
+      }
+  </script> -->
+
+	<script src="{{staticPath}}/js/html5slider.js"></script>
+</body>
+
+</html>

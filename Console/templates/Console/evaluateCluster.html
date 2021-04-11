@@ -56,13 +56,13 @@
 	    z-index:1;
 	}
 	.apiType{
-	    font-size: 15px;
+	    font-size: 13px;
 	    width:224px;
 	    height: 142px;
 	    margin-top: 50px;
 	    margin-bottom: 100px;
 	    position: absolute;
-	    text-align:left;
+	    text-align:center;
 	    /*white-space: nowrap;*/
 	    overflow:auto;
 	    text-overflow: ellipsis;
@@ -84,8 +84,11 @@
         .outlier{
 	   /*border:2px solid #C3464F;*/
 	}
+    .topoutlier{
+	   border:5px solid #C3464F;
+	}
         .hightlight{
-	   border:2px solid #FFCC00;
+	   border:5px solid #FFCC00;
 	}
     	input[type=range]:first-of-type {
           width: 650px;
@@ -128,22 +131,38 @@
 		<section id="page-content" class="index-page ">
 
 			<input type="range" value="0" min="-1" max="{{new_max_cluster}}" id="one" style="position: fixed;bottom:40%;right:-13%;" />
-			<div id="uno" style="position: fixed;bottom:2.5%;right:3.7%;">*&nbsp;</div>
+			<div id="uno" style="position: fixed;bottom:4.5%;right:3.7%;">*&nbsp;</div>
+      <button id="before" class="btn btn-default" style="position: fixed;bottom:0%;right:23.7%;z-index:2;">上一页</button>
+      <button id="allselect" class="btn btn-success" style="position: fixed;bottom:0%;right:13.7%;z-index:2;">本簇全选</button>
+      <button id="next" class="btn btn-default" style="position: fixed;bottom:0%;right:3.7%;z-index:2;">下一页</button>
 			<div id="changeApiShow" style="position:fixed; top:16%;right:3.6%;font-size: 25px;"><i id="showIcon" class="fa fa-th-large"></i> </div>
 
 			<section class="box-content box-1">
 				<div class="container" style="width:100%;height:1000px;">
 					<div class="heading wow" style="margin-bottom: 0px;">
 					<div class="row" style="margin-bottom: 30px;">
-					  <div class="col-md-3 col-md-offset-5">
+					  <div class="col-md-6 col-md-offset-3">
 					    <div class="input-group" >
 					      <input type="text" class="form-control" style="margin-top:15px;" placeholder="Search for..." id="searchFilter">
 					      <span class="input-group-btn" >
-						<button class="btn btn-default" style="margin-top:15px;margin-left:5px;border-radius:0px;" id='search' type="button">Find Clusters</button>
+						<button class="btn btn-default" style="margin-top:15px;margin-left:5px;border-radius:0px;width:100px;" id='search' type="button">Find Clusters</button>
 					      </span>
-                <span class="input-group-btn" >
-                  <button id='exportCSV' class="btn btn-info" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Export Suspects</button>
-                </span>
+                        <span class="input-group-btn" >
+                          <button id='exportCSV' class="btn btn-info" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Export Suspects</button>
+                          <button id='exportInfo' class="btn btn-success" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Export Basic Info</button>
+                        </span>
+                        <span class="input-group-btn" >
+                          <button id='clearSuspects' class="btn btn-warning" style="margin-top:15px;margin-left:5px;border-radius:0px;" type="button">Clear Suspects</button>
+                        </span>
+                        <span class="input-group-btn" style="width:20%;">
+                        <select class="form-control" id="misleadingdisplay" style="margin-top:15px;margin-left:5px;border-radius:5px;">
+                            <option selected="selected" >--Misleading Display--</option>
+                            <option value='top1'>Top 1</option>
+                            <option value='top3'>Top 3</option>
+                            <option value='top5'>Top 5</option>
+                            <option value='threshold'>Threshold</option>
+                        </select>
+                        </span>
 					    </div>
 					  </div>
 					</div>
@@ -151,22 +170,20 @@
 					<div name="图片总容器" class="isotopeTotal col-lg-10 col-sm-10 col-md-10 col-md-offset-1">
 					{% for info in apkInfoTree %}
     						<div class="isotopeSelect col-lg-2 col-sm-2 col-md-2   outer C{{info.1.new_cluster_no}} ">
-                    <p style="text-align:center;margin-top:-5px;">RC{{info.1.cluster_no}} O{{info.1.outlier_score}}</p>
-      							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}}" alt="" style="margin: auto;width: 224px;">
-      							<button type="button" class="btn btn-default center markAsSuspect notsuspect"  data-toggle="tooltip" data-placement="bottom" title="Click to Copy:{{info.0.app}}">
-                      <p class="button_text">{{info.0.app}}</p>
-                      <p class="info" style="opacity:0;font-size:0px;" app="{{info.0.app}}" widget="{{info.0.widget}}" appwebsite="{{info.1.appwebsite}}" iconaddr="{{picturePath}}{{BaseDir}}{{info.0.path}}"
-                      clusteraddress="{{info.1.new_cluster_no}}" realclusteraddress="{{info.1.cluster_no}}"  api="{{info.0.api_string}}"></p>
+                    <p style="text-align:center;margin-top:-5px;">RC{{info.1.cluster_no}} O{{info.1.outlier_score}} S{{info.1.outlier_sort}}</p>
+      							<img src="{{picturePath}}{{BaseDir}}{{info.0.path}}" class="{{info.1.isOutlier}} {{info.1.hightlight}} imageinfo" alt="" style="margin: auto;width: 224px;" app='{{info.0.app}}' sort='{{info.1.outlier_sort}}' score='{{info.1.outlier_score}}' >
+      							<button type="button" class="btn  center markAsSuspect notsuspect {{info.0.suspect}}"  data-toggle="tooltip" data-placement="bottom" title="Click to mark as suspect:{{info.0.app}}" comment=''>
+                                  <p class="info" style="opacity:0;font-size:0px;display:none;" raw_id="{{info.1.id}}" app="{{info.0.app}}" widget="{{info.0.widget}}" appwebsite="{{info.1.appwebsite}}" iconaddr="{{picturePath}}{{BaseDir}}{{info.0.path}}"
+                                  clusteraddress="{{info.1.new_cluster_no}}" realclusteraddress="{{info.1.cluster_no}}"  api="{{info.0.api_string}}"></p>
+                                  <p class="button_text">{{info.0.app}}</p>
                       <!-- data-clipboard-target="#C{{info.0.widget}}" -->
                     </button>
       							<p style="opacity:0;font-size:0px;" id="C{{info.0.widget}}">{{BaseDir}}{{info.0.app}}</p>
 
       							<div class="apiType hidden" >
-      								<ul >
       								{% for typeItem in info.0.api_type %}
-      								<li>{{typeItem}}</li>
+      								  <p>{{typeItem}}</p>
       								{% endfor %}
-                      </ul>
       							</div>
       						<!--<div class="apiContent hidden" >
       							<ul type='square'>
@@ -192,13 +209,15 @@
 	<!-- ========== Scripts ========== -->
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="{{staticPath}}/gallery-js/isotope.pkgd.min.js"></script>
+  <script src="{{staticPath}}/js/json2csv.js" type="text/javascript" charset="utf-8"></script>
   <!-- <script type="text/javascript" src="{{staticPath}}/clipboard.js-master/dist/clipboard.min.js"></script> -->
 	<!-- Definity JS -->
 	<script type="text/javascript">
 		console.log('reday')
 		window.apiShowStatus = 0
 		window.averAPIs = {{averAPIs}}
-    window.myWidgets = new Array();
+        window.myWidgets = new Array();
+        window.suspects = new String()
 		$(document).ready(function () {
 			function filter(filterValue){
 				$('.isotopeSelect').addClass('totalhidden')
@@ -224,67 +243,136 @@
 				filterValue = '.C' + $(this).val()
 				filter(filterValue)
 			})
-			$('#search').click(function () {
-				console.log('click!')
-				var filterValue = $('#searchFilter').val();
-				if(filterValue == "*"){
-					filterValue = '.isotopeSelect'
-				}else{
-					filterValue = '.C' + $('#searchFilter').val();
-				}
-				filter(filterValue)
-			});
 
-			$('#changeApiShow').click(function () {
-				console.log('change api show!')
-				// 是0则当前正常，按下后显示类型 fa-th-large
-				if (window.apiShowStatus == 0){
-					$('.apiType').removeClass('hidden')
-					$('.outer').removeClass('outer').addClass('outer_with_api')
-					$('#showIcon').removeClass('fa-th-large').addClass('fa-th-list')
-					window.apiShowStatus = 1
-				}
-				// 是1则当前仅显示类型，按下后显示具体内容 fa-th-list
-				//else if (window.apiShowStatus == 1){
-				//	$('.apiContent').removeClass('totalhidden')
-				//	$('#showIcon').removeClass('fa-th-list').addClass('fa-list')
-				//	window.apiShowStatus = 2
-				//}
-				// 是2则当前全部显示，按下后还原 fa-list
-				else if (window.apiShowStatus == 1){
-					//$('.apiContent').addClass('totalhidden')
-					$('.apiType').addClass('hidden')
-					$('.outer_with_api').removeClass('outer_with_api_smi').removeClass('outer_with_api').addClass('outer')
-					//$('#showIcon').removeClass('fa-list').addClass('fa-th-large')
-					$('#showIcon').removeClass('fa-th-list').addClass('fa-th-large')
-					window.apiShowStatus = 0
-				}else{}
-			});
+      $('#allselect').click(function(){
+        // select all widget ,into the window.myWidgets
+           $('.isotopeSelect').not('.totalhidden').each(function(){
+            $(this).find('button').each(markSuspects)
+           })
+        
+      })
+      $('#before').click(function(){
+        current_cluster_no = $('#uno').html()
+        if(current_cluster_no == '*'){
+          current_cluster_no = 1
+        }else{
+          current_cluster_no = parseInt(current_cluster_no) -1
+        }
+        $('#uno').html(current_cluster_no)
+        filterValue = '.C' + current_cluster_no
+        filter(filterValue)
+        $('#one').val(current_cluster_no)
+      });
+      $('#next').click(function(){
+        current_cluster_no = $('#uno').html()
+        if(current_cluster_no == '*'){
+          current_cluster_no = 1
+        }else{
+          current_cluster_no = parseInt(current_cluster_no) +1
+        }
+        $('#uno').html(current_cluster_no)
+        filterValue = '.C' + current_cluster_no
+        filter(filterValue)
+        $('#one').val(current_cluster_no)
+      });
 
-      $('.markAsSuspect').click(function () {
-        console.log('marking!')
+      $('#search').click(function () {
+      	console.log('click!')
+      	var filterValue = $('#searchFilter').val();
+        current_cluster_no = filterValue
+      	if(filterValue == "*"){
+      		filterValue = '.isotopeSelect'
+      	}else{
+      		filterValue = '.C' + $('#searchFilter').val();
+      	}
+      	filter(filterValue)
+        $('#uno').html(current_cluster_no)
+        $('#one').val(current_cluster_no)
+      });
+      
+       $('#changeApiShow').click(function () {
+               console.log('change api show!')
+           // 是0则当前正常，按下后显示类型 fa-th-large
+           if (window.apiShowStatus == 0){
+               $('.apiType').removeClass('hidden')
+               $('.outer').removeClass('outer').addClass('outer_with_api')
+               $('#showIcon').removeClass('fa-th-large').addClass('fa-th-list')
+               window.apiShowStatus = 1
+           }
+           // 是1则当前仅显示类型，按下后显示具体内容 fa-th-list
+           //else if (window.apiShowStatus == 1){
+           //	$('.apiContent').removeClass('totalhidden')
+           //	$('#showIcon').removeClass('fa-th-list').addClass('fa-list')
+           //	window.apiShowStatus = 2
+           //}
+           // 是2则当前全部显示，按下后还原 fa-list
+           else if (window.apiShowStatus == 1){
+               //$('.apiContent').addClass('totalhidden')
+               $('.apiType').addClass('hidden')
+               $('.outer_with_api').removeClass('outer_with_api_smi').removeClass('outer_with_api').addClass('outer')
+               //$('#showIcon').removeClass('fa-list').addClass('fa-th-large')
+               $('#showIcon').removeClass('fa-th-list').addClass('fa-th-large')
+               window.apiShowStatus = 0
+           }else{}
+       });
+
+      $('.imageinfo').click(function () {
+        console.log('simple info')
+        infoobject = $(this).next().children('.info')
+          var clusteraddress = 'C'+infoobject.attr('clusteraddress')+' RC'+infoobject.attr('realclusteraddress')
+          var clusterlinkIndex = window.location.href.lastIndexOf("\/")
+          var clusterlink = window.location.href.substring(0,clusterlinkIndex)+'/'+infoobject.attr('clusteraddress')
+          var newSuspect =
+            {
+             'appwebsite':infoobject.attr('appwebsite'),
+             'app':infoobject.attr('app'),
+             'clusteraddress':clusteraddress,
+           }
+        
+        //info =JSON.stringify(newSuspect) 
+        // use prompt to get th comment
+        comment = prompt('app:'+infoobject.attr('app')+' 可以在下面评论,使用All:xxx可以将评论广播到本簇','当前comment:'+$(this).next().attr('comment'));
+        if(comment.indexOf('All:') >= 0){
+           $('.isotopeSelect').not('.totalhidden').each(function(){
+            $(this).find('button').attr('comment',comment.replace('All:',''))
+           })
+        }
+        else{
+            $(this).next().attr('comment',comment)
+        }
+      })
+
+     var markSuspects = function(){
         if ($(this).hasClass('btn-default')){
+          console.log('marking as suspect')
           $(this).removeClass('btn-default').addClass('btn-info')
           var clusteraddress = 'C'+$(this).children(".info").attr('clusteraddress')+' RC'+$(this).children(".info").attr('realclusteraddress')
           var clusterlinkIndex = window.location.href.lastIndexOf("\/")
           var clusterlink = window.location.href.substring(0,clusterlinkIndex)+'/'+$(this).children(".info").attr('clusteraddress')
+          sotreinfo = '{{current_db}}'+' : '+$(this).children(".info").attr('iconaddr')+' | '+$(this).children(".info").attr('widget')
+          window.suspects += $(this).children(".info").attr('raw_id')+';'
           var newSuspect =
-            {'type':'',
-             'database':'{{current_db}}',
-             'app':$(this).children(".info").attr('app'),
-             'widget':$(this).children(".info").attr('widget'),
+            {'download':'',
+             'appname':'',
+             'logoaddr':'',
+             'logo':'',
              'appwebsite':$(this).children(".info").attr('appwebsite'),
+             'app':$(this).children(".info").attr('app'),
              'iconaddr':$(this).children(".info").attr('iconaddr'),
              'icon':'',
              'clusteraddress':clusteraddress,
              'clusterlink':clusterlink,
              'appscreenshot':'',
              'clusterscreenshot':'',
-             'api':$(this).children(".info").attr('api')
+             'api':$(this).children(".info").attr('api'),
+             'problem':$(this).attr('comment'),
+             'contact':'',
+             'storeinfo':sotreinfo,
            }
            console.log(newSuspect)
            window.myWidgets.push(newSuspect)
         }else{
+          console.log('marking as not suspect')
           $(this).removeClass('btn-info').addClass('btn-default')
           for(var i=0;i<window.myWidgets.length;i++){
             if (window.myWidgets[i].app == $(this).children(".info").attr('app') && window.myWidgets[i].widget == $(this).children(".info").attr('widget')){
@@ -292,10 +380,174 @@
             }
           }
         }
+    }
 
-      });
+      $('.markAsSuspect').click(markSuspects);
+
+    var funDownload = function (content, filename) {
+        var eleLink = document.createElement('a');
+        eleLink.download = filename;
+        eleLink.style.display = 'none';
+        // 字符内容转变成blob地址
+        var blob = new Blob([content]);
+
+        eleLink.href = URL.createObjectURL(blob);
+        console.log('eleLink.href',eleLink.href)
+        // 触发点击
+        document.body.appendChild(eleLink);
+        eleLink.click();
+        // 然后移除
+        document.body.removeChild(eleLink);
+    };
+    $('#exportCSV').click(function(){
+      var fields = ['download','appname','logoaddr','logo','appwebsite','app','iconaddr','icon','clusteraddress',
+      'clusterlink','appscreenshot','clusterscreenshot','api','problem','contact','storeinfo'];
+      // 进行数据库提交
+      console.log('#exportCSV: windows.suspects',window.suspects)
+      console.log('#exportCSV: windows.myWidgets',window.myWidgets)
+      suspects_app = ''
+      for(item in window.myWidgets){
+        suspects_app += (window.myWidgets[item]['app']+';')
+      }
+      widgetMoewInfo = new Array()
+      $.ajax({
+              type: 'GET',
+              url: '/Console/submitSuspects',
+              data: {'suspects':window.suspects,'suspects_app':suspects_app},
+              dataType: 'json',
+              contentType: 'application/json; charset=UTF-8',
+              success: function(data) {
+                widgetMoewInfo = data['data']
+                console.log('in ajax: widgetMoewInfo',widgetMoewInfo)
+                alert(data['msg']+' 已提交到数据库!')
+                for(var i=0; i < window.myWidgets.length; i++){
+                  console.log('in for widgetMoewInfo',widgetMoewInfo)
+                  window.myWidgets[i]['logoaddr'] = widgetMoewInfo[i][0]
+                  window.myWidgets[i]['appname'] = widgetMoewInfo[i][1]
+                  window.myWidgets[i]['contact'] = widgetMoewInfo[i][2]
+                  window.myWidgets[i]['download'] = widgetMoewInfo[i][3]
+                }
+                var csv = json2csv({ data: window.myWidgets, fields: fields });
+                funDownload(csv, 'test.csv');
+              } 
+      })
+
+        
+
+    });
+    $('#exportInfo').click(function(){
+      var fields = ['app','iconaddr','icon','clusteraddress','clusterlink','api','problem','storeinfo'];
+      // 进行数据库提交
+      console.log('#exportInfo: windows.suspects',window.suspects)
+      console.log('#exportInfo: windows.myWidgets',window.myWidgets)
+      var csv = json2csv({ data: window.myWidgets, fields: fields });
+      funDownload(csv, 'info.csv');
+    });
+    $('#clearSuspects').click(function(){
+        $('.markAsSuspect').each(function(){
+          $(this).removeClass('btn-info').addClass('btn-default')
+        })
+        window.myWidgets = new Array();
+    });
+
+
 
 		});
+        $('#misleadingdisplay').change(function(){
+            console.log('misleadingdisplay changed!')
+            var misleadingdisplay = $('#misleadingdisplay option:selected').val()
+            if(misleadingdisplay=='top1'){
+                console.log('misleadingdisplay top5 changed!')
+                /* can use to limit scope
+                $('.isotopeSelect').not('.totalhidden').each(function(){
+                    console.log('######isotopeSelect:')
+                })
+                */
+                $('.imageinfo').each(function(){
+                    if($(this).attr('sort') < 1){
+                        $(this).addClass('topoutlier')
+                    }else{
+                        $(this).removeClass('topoutlier')
+                    }
+                })
+            }
+            else if(misleadingdisplay=='top3'){
+                console.log('misleadingdisplay top5 changed!')
+                $('.imageinfo').each(function(){
+                    if($(this).attr('sort') < 3){
+                        $(this).addClass('topoutlier')
+                    }else{
+                        $(this).removeClass('topoutlier')
+                    }
+                })
+            }
+            else if(misleadingdisplay=='top5'){
+                console.log('misleadingdisplay top5 changed!')
+                $('.imageinfo').each(function(){
+                    if($(this).attr('sort') < 5){
+                        $(this).addClass('topoutlier')
+                    }else{
+                        $(this).removeClass('topoutlier')
+                    }
+                })
+            }
+            else{
+                // 弹出对话框，获取自定义阈值
+                // 如果是排序xx
+                // 如果是分数xx
+                threshold=prompt("输入自定义阈值:若为排序序号阈值以S开头，如S<5;若为异常分数阈值以O开头，如O>=0.55;","O>=0.55"); 
+                threshold_type = threshold.substr(0,1)
+                if(threshold.indexOf('=') >= 0){
+                    threshold_operator = threshold.substr(1,2)
+                    threshold_value = threshold.substr(3)
+                }else{
+                    threshold_operator = threshold.substr(1,1)
+                    threshold_value = threshold.substr(2)
+                }
+                console.log(threshold_type,threshold_operator,threshold_value)
+                if( threshold_type == 'S'){
+                    threshold_value = parseInt(threshold_value)
+                    $('.imageinfo').each(function(){
+                        current_value = parseInt($(this).attr('sort')) 
+                        if(threshold_operator == '>')
+                            expression = current_value > threshold_value
+                        else if(threshold_operator == '<=')
+                            expression = current_value <= threshold_value
+                        else if(threshold_operator == '>=')
+                            expression = current_value >= threshold_value
+                        else
+                            expression = current_value < threshold_value //default <
+                        if(expression){
+                            $(this).addClass('topoutlier')
+                        }else{
+                            $(this).removeClass('topoutlier')
+                        }
+                    })
+                
+                }else if (threshold_type == 'O'){
+                    threshold_value = parseFloat(threshold_value)
+                    $('.imageinfo').each(function(){
+                        current_value = -parseFloat($(this).attr('score')) 
+                        if(threshold_operator == '>')
+                            expression = current_value > threshold_value
+                        else if(threshold_operator == '<=')
+                            expression = current_value <= threshold_value
+                        else if(threshold_operator == '>=')
+                            expression = current_value >= threshold_value
+                        else
+                            expression = current_value < threshold_value //default <
+                        if(expression){
+                            $(this).addClass('topoutlier')
+                        }else{
+                            $(this).removeClass('topoutlier')
+                        }
+                    })
+                
+                }
+
+
+            }
+        })
 	</script>
 	<!-- <script type="text/javascript">
                 var clipboard = new ClipboardJS('.btn');
@@ -311,8 +563,8 @@
                 });
 	</script> -->
 
-  <script src="{{staticPath}}/js/json2csv.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript" charset="utf-8">
+
+  <!-- <script type="text/javascript" charset="utf-8">
       // 使用该脚本自动记录人认为可疑的控件，生成csv
       //CSV:类型 库 控件名 控件网址(自动生成Google和Fdroid) 图标地址 图标本身 簇地址 簇地址链接 *应用截图* *簇截图* 该控件的API
       // 示例数据
@@ -325,7 +577,10 @@
       //     "color": "blue"
       //   },];
       // json数据转csv格式
-      var csv = json2csv({ data: window.myWidgets, fields: fields });
+      var myWidgets = window.myWidgets
+      console.log('myWidgets in this',myWidgets)
+      var csv = json2csv({ data: myWidgets, fields: fields });
+      console.log('csv in this',csv)
 
       var eleButton = document.querySelector('#exportCSV');
 
@@ -336,7 +591,9 @@
           eleLink.style.display = 'none';
           // 字符内容转变成blob地址
           var blob = new Blob([content]);
+
           eleLink.href = URL.createObjectURL(blob);
+          console.log('eleLink.href',eleLink.href)
           // 触发点击
           document.body.appendChild(eleLink);
           eleLink.click();
@@ -354,7 +611,7 @@
               alert('浏览器不支持');
           };
       }
-  </script>
+  </script> -->
 
 	<script src="{{staticPath}}/js/html5slider.js"></script>
 </body>

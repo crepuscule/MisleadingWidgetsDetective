@@ -17,12 +17,6 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="{{staticPath}}/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
-    <style>
-        .remark{
-            
-        }
-    </style>
-
 </head>
 
 <body>
@@ -354,44 +348,32 @@
                 </div>
 
         <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12" >
+                <div class="col-md-4 col-sm-12 col-xs-12" >
                     <div class="panel panel-default" style="height:396px;">
                         <div class="panel-heading">
-                            DataBase Summary
+                            Choose DataBase
                         </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>DataBase Name</th>
-                                            <th>Tag This DataBase</th>
-                                            <th>Choose This DataBase</th>
-                                            <th>Remark This DataBase</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for database in dataBaseList %}
-                                          <tr>
-                                          {% if database.name == current_db%}
-                                              <td>{{database.name}} | Current</td>
-                                          {% else %}
-                                              <td>{{database.name}}</td>
-                                          {% endif %}
-
-                                          <td><a href="{{database.tagLink}}">Click</a></td>
-                                          <td><a href="{{database.chooseLink}}">Click</a></td>
-                                          <td><a ><span class='remark' link="{{database.remarkLink}}" database="{{database.name}}">{{database.remark}}</span></a></td>
-                                          </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                        <div class="panel-body" style="margin-top:20px;">
+                            <div class="list-group">
+                            {% for db_name in db_list %}
+                                {% if forloop.counter <= 6 %}
+                                    <a href="/Console/changedb/{{db_name}}" class="list-group-item">
+                                    {% if current_db == db_name %}
+                                        <span class="badge">Current DataBase</span>
+                                    {% endif %}
+                                        <i class="fa fa-fw fa-comment"></i>{{db_name}}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                             </div>
-                         </div>
+                            <div class="text-right">
+                                <a href="#"  data-toggle="modal" data-target="#myModal">All DataBases<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- 选择rawApkForest -->
-                <div class="col-md-6 col-sm-12 col-xs-12" >
+                <div class="col-md-8 col-sm-12 col-xs-12" >
                     <div class="panel panel-default" style="height:396px;">
                         <div class="panel-heading">
                             SubTask Summary
@@ -409,10 +391,10 @@
                                     <tbody>
                                     {% for apkforest in apkForestList %}
                                           <tr>
-                                          {% if apkforest.name == current_apkforest%}
-                                              <td>{{apkforest.name}} | Current</td>
+                                          {% if apkforest.Name == current_apkforest%}
+                                              <td>{{apkforest.Name}} | Current</td>
                                           {% else %}
-                                              <td>{{apkforest.name}}</td>
+                                              <td>{{apkforest.Name}}</td>
                                           {% endif %}
 
                                           <td><a href="{{apkforest.tagLink}}">Click</a></td>
@@ -451,9 +433,6 @@
   						</div>
   						<div class="panel-body">
   							<div id="morris-line-chart"></div>
-                            <form action="savecoverlist" method="POST" enctype="multipart/form-data" >{% csrf_token %} 
-                                <input id="file"  type="file"  name="coverListFile" multiple="multiple" >上传需要Cover的控件列表</input>
-                            </form>
   						</div>
   					</div>
   					</div>
@@ -605,24 +584,6 @@
                                 console.log('error!')
                         }
                     });
-            })
-            $('.remark').click(function(){
-                var remark = prompt('Remark this database:','for ...')
-                $.ajax({
-                    type:'GET',
-                    url: '/Console/remarkdatabase',
-                    data: {'database':$(this).attr('database'),'remark':remark},
-                    dataType:'json',
-                    contentType: 'application/json; charset=UTF-8',
-                    success: function(data) { 
-                        alert(data['msg'])
-                    },
-                     error: function(xhr, type) {
-                             console.log('error!')
-                     }
-                    
-
-                });
             })
         });//end of $(document).ready
 
